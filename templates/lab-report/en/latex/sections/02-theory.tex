@@ -1,0 +1,23 @@
+\section{Theory}
+
+An unloaded resistive divider (\cref{fig:divider}) produces
+\begin{equation}\label{eq:divider}
+  V_\mathrm{out} = V_\mathrm{in}\,\frac{R_2}{R_1+R_2}.
+\end{equation}
+With a load $R_L$ in parallel with $R_2$, replace $R_2$ by $R_2\parallel R_L = R_2R_L/(R_2+R_L)$ in \cref{eq:divider}.
+
+\begin{figure}[ht]
+  \centering
+  \begin{circuitikz}[scale=0.9, transform shape]
+    \draw (0,0) to[V, l=$V_\mathrm{in}$] (0,3)
+          to[R, l=$R_1$] (3,3)
+          to[R, l=$R_2$, -*] (3,0) -- (0,0);
+    \draw (3,3) to[short, -o] (4.2,3) node[right]{$V_\mathrm{out}$};
+  \end{circuitikz}
+  \caption{Resistive voltage divider.}\label{fig:divider}
+\end{figure}
+
+\begin{definitionbox}[Loading effect]
+A measuring instrument with input resistance $R_L$ draws current from the circuit and lowers the
+quantity it measures; the effect is negligible only when $R_L\gg R_2$.
+\end{definitionbox}

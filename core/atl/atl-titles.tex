@@ -1,0 +1,129 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-titles.tex -- title pages.   Call  \atlmaketitle  right after \begin{document}.
+%   key titlepage = block (default)  banner + info grid at the top of page 1
+%                   cover             full cover page with palette artwork
+%                   classic           centered journal-style title (essay, paper)
+%                   none
+%   keys used: title subtitle author affiliation studentid course coursecode instructor
+%              supervisor advisor team partners experiment labsection term date
+%              duedate submissiondate university department logo doctype category
+%   infofields = comma list of keys shown in the info grid (labels come from the
+%                language layer, so the same list works in English and Persian).
+% Empty or unset keys are skipped.
+% ============================================================================
+\makeatletter
+\atldefault{titlepage}{block}
+\newcount\atl@cnt
+\newlength{\atl@cellw}
+
+\newcommand{\atl@doctype}{\atlifset{doctype}{\atlmeta{doctype}}{\atlstr{type-\atlmeta{category}}}}
+
+\def\atl@amp{&}
+\def\atl@endrow{\\[8pt]}
+\newcommand{\atl@cellbody}[1]{%
+  \global\advance\atl@cnt\@ne
+  \parbox[t]{\atl@cellw}{\atl@flushstart
+    {\small\atl@headfont\color{atl-muted}\atlstr{#1}}\\[1pt]%
+    {\bfseries\atlmeta{#1}}}%
+  \ifodd\atl@cnt\expandafter\atl@amp\else\expandafter\atl@endrow\fi}
+\newcommand{\atl@cell}[1]{\atlifset{#1}{\atl@cellbody{#1}}{}}
+\newcommand{\atlinfogrid}[1]{%
+  \begingroup
+  \setlength{\atl@cellw}{0.465\linewidth}\global\atl@cnt\z@
+  \edef\atl@l{#1}%
+  \begin{tabular}{@{}p{\atl@cellw}@{\hspace{0.07\linewidth}}p{\atl@cellw}@{}}
+    \expandafter\forcsvlist\expandafter\atl@cell\expandafter{\atl@l}%
+    \ifodd\atl@cnt\mbox{}\fi
+  \end{tabular}%
+  \endgroup}
+
+% ---- block: banner on top of page 1 -------------------------------------------------
+\newcommand{\atl@title@block}{%
+  \begingroup
+  \begin{tcolorbox}[enhanced,sharp corners,frame hidden,colback=atl-primary,
+      borderline south={4pt}{0pt}{atl-accent},
+      left=15pt,right=15pt,top=13pt,bottom=13pt,before skip=0pt,after skip=0pt]
+    {\atl@headfont\small\bfseries\color{white!70!atl-accent}\atl@doctype\par}\vspace{4pt}
+    {\atl@headfont\bfseries\fontsize{24}{29}\selectfont\color{white}\atlmeta{title}\par}
+    \atlifset{subtitle}{\vspace{4pt}{\atl@headfont\large\color{white!82!atl-primary}\atlmeta{subtitle}\par}}{}
+  \end{tcolorbox}
+  \vspace{1em}
+  \atlinfogrid{\atlmeta{infofields}}\par
+  \vspace{0.4em}{\color{atl-accent}\rule{\linewidth}{0.5pt}}\par\vspace{0.6em}
+  \endgroup}
+
+% ---- classic: journal-style --------------------------------------------------------
+\newcommand{\atl@title@classic}{%
+  \begin{center}
+    {\atl@headfont\bfseries\LARGE\color{atl-primary}\atlmeta{title}\par}
+    \atlifset{subtitle}{\vspace{4pt}{\large\color{atl-muted}\atlmeta{subtitle}\par}}{}
+    \vspace{7pt}{\color{atl-accent}\rule{0.22\linewidth}{1.2pt}}\par\vspace{9pt}
+    \atlifset{author}{{\large\atlmeta{author}\par}}{}
+    \atlifset{affiliation}{\vspace{2pt}{\small\color{atl-muted}\atlmeta{affiliation}\par}}{}
+    \atlifset{date}{\vspace{2pt}{\small\atlmeta{date}\par}}{}
+  \end{center}\vspace{0.4em}}
+
+% ---- cover: full page ----------------------------------------------------------------
+\newcommand{\atl@cover@art}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[atl-tint] (current page.south west) rectangle (current page.north east);
+    % top ribbons (back to front)
+    \path[fill=atl-accent!85!atl-tint] (current page.north west)
+      -- ([yshift=-6.6cm]current page.north west)
+      to[out=-12,in=188] ([yshift=-2.9cm]current page.north east)
+      -- (current page.north east) -- cycle;
+    \path[fill=atl-secondary!90!atl-tint] (current page.north west)
+      -- ([yshift=-5.7cm]current page.north west)
+      to[out=-16,in=190] ([yshift=-2.1cm]current page.north east)
+      -- (current page.north east) -- cycle;
+    \path[fill=atl-primary] (current page.north west)
+      -- ([yshift=-4.7cm]current page.north west)
+      to[out=-20,in=192] ([yshift=-1.3cm]current page.north east)
+      -- (current page.north east) -- cycle;
+    \path[fill=white,fill opacity=0.10] (current page.north west)
+      -- ([yshift=-3.1cm]current page.north west)
+      to[out=-24,in=195] ([yshift=-0.5cm]current page.north east)
+      -- (current page.north east) -- cycle;
+    % bottom ribbons
+    \path[fill=atl-accent!85!atl-tint] (current page.south east)
+      -- ([yshift=2.9cm]current page.south east)
+      to[out=172,in=-8] ([yshift=1.2cm]current page.south west)
+      -- (current page.south west) -- cycle;
+    \path[fill=atl-secondary!90!atl-tint] (current page.south east)
+      -- ([yshift=2.2cm]current page.south east)
+      to[out=170,in=-10] ([yshift=0.8cm]current page.south west)
+      -- (current page.south west) -- cycle;
+    \path[fill=atl-primary] (current page.south east)
+      -- ([yshift=1.5cm]current page.south east)
+      to[out=168,in=-12] ([yshift=0.4cm]current page.south west)
+      -- (current page.south west) -- cycle;
+  \end{tikzpicture}}
+
+\newcommand{\atl@title@cover}{%
+  \begin{titlepage}
+    \thispagestyle{empty}\atl@cover@art
+    \vspace*{3.4cm}
+    \begin{center}
+      \atlifset{logo}{\includegraphics[height=2.8cm]{\atlmeta{logo}}\par\vspace{0.7cm}}{}
+      \atlifset{university}{{\atl@headfont\Large\bfseries\color{atl-primary}\atlmeta{university}\par}}{}
+      \atlifset{department}{\vspace{2pt}{\atl@headfont\large\color{atl-secondary-text}\atlmeta{department}\par}}{}
+      \vspace{1.6cm}
+      {\atl@headfont\small\bfseries\color{atl-accent-text}\atl@doctype\par}\vspace{8pt}
+      {\atl@headfont\bfseries\fontsize{30}{36}\selectfont\color{atl-primary}\atlmeta{title}\par}
+      \atlifset{subtitle}{\vspace{8pt}{\atl@headfont\Large\color{atl-muted}\atlmeta{subtitle}\par}}{}
+      \vspace{14pt}{\color{atl-accent}\rule{0.28\linewidth}{2pt}}\par
+    \end{center}
+    \vfill
+    \atlinfogrid{\atlmeta{infofields}}
+    \vspace{2.6cm}
+  \end{titlepage}}
+
+\newcommand{\atlmaketitle}{%
+  \atlifeq{titlepage}{cover}{\atl@title@cover}{%
+  \atlifeq{titlepage}{classic}{\atl@title@classic}{%
+  \atlifeq{titlepage}{none}{}{\atl@title@block}}}}
+
+\AtBeginDocument{%
+  \hypersetup{unicode=true,pdftitle={\atlmeta{title}},pdfauthor={\atlmeta{author}}}}
+\makeatother

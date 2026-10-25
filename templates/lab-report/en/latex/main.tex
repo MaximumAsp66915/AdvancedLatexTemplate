@@ -1,0 +1,28 @@
+% !TeX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+\input{atl/atl-keys}                      % 1. configuration keys
+\atlset{category=lab-report,              % 2. what this template is (change freely)
+        titlepage=block, margins=normal, linespread=1.15,
+        infofields={author,studentid,partners,course,instructor,experiment,performed,submissiondate},
+        title={Lab Report}, submissiondate={\today}}
+\input{config}                            % 3. your values (written by mktex; edit freely)
+\input{atl/atl}                           % 4. the engine
+\input{preamble/local}                    % 5. your own macros and settings
+
+\begin{document}
+\atlmaketitle
+
+\input{sections/01-objective}
+\input{sections/02-theory}
+\input{sections/03-apparatus}
+\input{sections/04-procedure}
+\input{sections/05-results}
+\input{sections/06-analysis}
+\input{sections/07-conclusion}
+
+\atlbibliography{refs}
+
+\atlappendix
+\input{appendix/raw-data}
+\end{document}

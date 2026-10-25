@@ -1,0 +1,28 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-floats.tex -- captions, tables, figures, lists
+%   Table captions go above, figure captions below (Iranian and IEEE convention).
+%   \atlhead{text}   white bold text for a header cell (use after \rowcolor{atl-primary})
+%   \atlrows         zebra striping:  \atlrows before \begin{tabular}
+% ============================================================================
+\makeatletter
+\captionsetup{font=small,labelfont={bf,color=atl-primary},labelsep=colon,
+  format=plain,justification=centering,singlelinecheck=true,skip=6pt}
+\captionsetup{hypcap=false}
+\captionsetup[table]{position=above}
+\captionsetup[figure]{position=below}
+\renewcommand{\arraystretch}{1.18}
+\newcommand{\atlhead}[1]{\textcolor{white}{\bfseries #1}}
+\newcommand{\atlrows}{\rowcolors{2}{atl-tint}{white}}
+
+\sisetup{
+  per-mode=symbol,
+  quantity-product={\,},
+  inter-unit-product={\cdot},
+  detect-weight=true,detect-family=true,
+  mode=match,
+  table-align-text-post=false,
+}
+\graphicspath{{fig/}{figures/}{./}}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg}
+\makeatother

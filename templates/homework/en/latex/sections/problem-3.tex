@@ -1,0 +1,27 @@
+\section{Short Answers}
+
+\begin{problem}[Units][5]
+A resistor of \qty{4.7}{\kilo\ohm} carries \qty{2.5}{\milli\ampere}. What power does it dissipate?
+\end{problem}
+
+\begin{solution}
+$P = I^2R = (\qty{2.5}{\milli\ampere})^2\cdot\qty{4.7}{\kilo\ohm} \approx \qty{29.4}{\milli\watt}$.
+\end{solution}
+
+\begin{notebox}
+Use \texttt{\textbackslash qty} and \texttt{\textbackslash unit} from \texttt{siunitx} for numbers with units, and
+\texttt{\textbackslash vect}, \texttt{\textbackslash mat}, \texttt{\textbackslash trans} for notation. See the
+engine file \texttt{atl/atl-macros.tex} for the full list.
+\end{notebox}
+
+\begin{tipbox}[Tip]
+Put every figure in \texttt{fig/} and refer to it with \texttt{\textbackslash cref}.
+\end{tipbox}
+
+\begin{problem}[Proof][10]
+Show that $\sqrt{2}$ is irrational.
+\end{problem}
+
+\begin{proof}
+Suppose $\sqrt2=p/q$ in lowest terms. Then $p^2=2q^2$, so $p$ is even, say $p=2k$. Then $q^2=2k^2$ and $q$ is even as well, a contradiction.
+\end{proof}

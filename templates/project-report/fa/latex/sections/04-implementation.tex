@@ -1,0 +1,34 @@
+\section{پیاده‌سازی}
+
+هسته‌ی حلقه‌ی نمونه‌برداری در ادامه آمده است.
+
+\begin{codebox}[title=sampler.c]{C}
+#include <stdint.h>
+
+static volatile uint32_t ticks;
+
+void timer_isr(void) {
+    ticks++;                 /* 1 Hz tick */
+}
+
+int main(void) {
+    for (;;) {
+        if (ticks) {
+            ticks = 0;
+            log_sample(read_sensor());
+        }
+    }
+}
+\end{codebox}
+
+\subsection{زمان‌بندی}
+\begin{center}\atlrows
+  \captionof{table}{زمان‌بندی پروژه.}\label{tab:schedule}
+  \begin{tabular}{@{}lcc@{}}
+    \rowcolor{atl-primary}\atlhead{فعالیت} & \atlhead{شروع} & \atlhead{پایان}\\
+    نیازمندی‌ها & هفته‌ی ۱ & هفته‌ی ۲ \\
+    طراحی & هفته‌ی ۲ & هفته‌ی ۴ \\
+    پیاده‌سازی & هفته‌ی ۴ & هفته‌ی ۹ \\
+    آزمون & هفته‌ی ۹ & هفته‌ی ۱۱ \\
+  \end{tabular}
+\end{center}

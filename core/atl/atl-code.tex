@@ -1,0 +1,148 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-code.tex -- syntax-highlighted code
+%   key:   listing = darcula (default) | dark | bright | github
+%   switch mid-document:  \atlsetlisting{bright}
+%   plain listings:       \begin{lstlisting}[language=Python] ... \end{lstlisting}
+%   framed with title:    \begin{codebox}{Python} ... \end{codebox}
+%                         \begin{codebox}[title=Fast Fourier transform]{Python}
+%   from a file:          \atlinputcode[title=main.c]{C}{../simulation/main.c}
+% Languages: Python Matlab C C++ Verilog VHDL Assembler(x86masm) bash ... (any of listings').
+% Code is always typeset left-to-right, also inside Persian documents.
+% The older theme names dark_2026 and bright_2026 are still accepted.
+% ============================================================================
+\makeatletter
+% \atldeflisttheme{name}{bg=..,fg=..,kw=..,str=..,cmt=..,num=..,bi=..,deco=..,op=..,br=..}  (HTML hex)
+\pgfkeys{/atl/lst/.cd,
+  bg/.code={\definecolor{atl-\atl@curlt-bg}{HTML}{#1}},   fg/.code={\definecolor{atl-\atl@curlt-fg}{HTML}{#1}},
+  kw/.code={\definecolor{atl-\atl@curlt-kw}{HTML}{#1}},   str/.code={\definecolor{atl-\atl@curlt-str}{HTML}{#1}},
+  cmt/.code={\definecolor{atl-\atl@curlt-cmt}{HTML}{#1}}, num/.code={\definecolor{atl-\atl@curlt-num}{HTML}{#1}},
+  bi/.code={\definecolor{atl-\atl@curlt-bi}{HTML}{#1}},   deco/.code={\definecolor{atl-\atl@curlt-deco}{HTML}{#1}},
+  op/.code={\definecolor{atl-\atl@curlt-op}{HTML}{#1}},   br/.code={\definecolor{atl-\atl@curlt-br}{HTML}{#1}},
+}
+\newcommand{\atldeflisttheme}[2]{\def\atl@curlt{#1}\pgfkeys{/atl/lst/.cd,#2}}
+\atldeflisttheme{darcula}{bg=2B2B2B,fg=A9B7C6,kw=CC7832,str=6A8759,cmt=808080,num=6897BB,bi=8888C6,deco=BBB529,op=A9B7C6,br=A9B7C6}
+\atldeflisttheme{dark}{bg=141820,fg=C8D2DC,kw=FF8C32,str=78C878,cmt=646E78,num=64B4FF,bi=B496FF,deco=DCB432,op=C8D2DC,br=FF7878}
+\atldeflisttheme{bright}{bg=FAFAFA,fg=282832,kw=B45014,str=148232,cmt=78828C,num=0064C8,bi=783CC8,deco=B47800,op=282832,br=C81E32}
+\atldeflisttheme{github}{bg=0D1117,fg=C9D1D9,kw=FF7B72,str=A5D6FF,cmt=8B949E,num=79C0FF,bi=D2A8FF,deco=FFA657,op=C9D1D9,br=C9D1D9}
+
+\newcommand{\atlsetlisting}[1]{%
+  \def\atl@lt{#1}%
+  \ifstrequal{#1}{dark_2026}{\def\atl@lt{dark}}{}%
+  \ifstrequal{#1}{bright_2026}{\def\atl@lt{bright}}{}%
+  \ifcsname\string\color@atl-\atl@lt-bg\endcsname\else
+    \PackageError{atl}{Unknown listing theme `#1'}{Use darcula, dark, bright or github.}\fi
+  \forcsvlist{\atl@lstrole}{bg,fg,kw,str,cmt,num,bi,deco,op,br}}
+\newcommand{\atl@lstrole}[1]{\colorlet{atl-lst-#1}{atl-\atl@lt-#1}}
+
+% numbers, operators and brackets get their own color through literate rules
+\lstdefinestyle{atl-lst}{
+  basicstyle=\atl@ltr\ttfamily\footnotesize\color{atl-lst-fg},
+  identifierstyle=\color{atl-lst-fg},
+  keywordstyle=\color{atl-lst-kw},
+  keywordstyle=[2]\color{atl-lst-bi},
+  keywordstyle=[3]\color{atl-lst-deco},
+  stringstyle=\color{atl-lst-str},
+  commentstyle=\color{atl-lst-cmt}\itshape,
+  numbers=left,numberstyle=\atl@ltr\tiny\color{atl-lst-cmt},numbersep=9pt,
+  backgroundcolor=\color{atl-lst-bg},
+  frame=single,rulecolor=\color{atl-lst-bg},framerule=0pt,framesep=7pt,
+  xleftmargin=\dimexpr2.2em+7pt\relax,framexleftmargin=2.2em,xrightmargin=7pt,framexrightmargin=0pt,
+  breaklines=true,breakatwhitespace=false,
+  tabsize=4,showspaces=false,showstringspaces=false,upquote=true,
+  columns=fullflexible,keepspaces=true,
+  literate=
+    *{0}{{\textcolor{atl-lst-num}{0}}}{1}
+     {1}{{\textcolor{atl-lst-num}{1}}}{1}
+     {2}{{\textcolor{atl-lst-num}{2}}}{1}
+     {3}{{\textcolor{atl-lst-num}{3}}}{1}
+     {4}{{\textcolor{atl-lst-num}{4}}}{1}
+     {5}{{\textcolor{atl-lst-num}{5}}}{1}
+     {6}{{\textcolor{atl-lst-num}{6}}}{1}
+     {7}{{\textcolor{atl-lst-num}{7}}}{1}
+     {8}{{\textcolor{atl-lst-num}{8}}}{1}
+     {9}{{\textcolor{atl-lst-num}{9}}}{1}
+     {=}{{\textcolor{atl-lst-op}{=}}}{1}
+     {+}{{\textcolor{atl-lst-op}{+}}}{1}
+     {-}{{\textcolor{atl-lst-op}{-}}}{1}
+     {*}{{\textcolor{atl-lst-op}{*}}}{1}
+     {/}{{\textcolor{atl-lst-op}{/}}}{1}
+     {,}{{\textcolor{atl-lst-op}{,}}}{1}
+     {:}{{\textcolor{atl-lst-op}{:}}}{1}
+     {<}{{\textcolor{atl-lst-op}{<}}}{1}
+     {>}{{\textcolor{atl-lst-op}{>}}}{1}
+     {!}{{\textcolor{atl-lst-op}{!}}}{1}
+     {?}{{\textcolor{atl-lst-op}{?}}}{1}
+     {.}{{\textcolor{atl-lst-op}{.}}}{1}
+     {;}{{\textcolor{atl-lst-op}{;}}}{1}
+     {(}{{\textcolor{atl-lst-br}{(}}}{1}
+     {)}{{\textcolor{atl-lst-br}{)}}}{1}
+     {[}{{\textcolor{atl-lst-br}{[}}}{1}
+     {]}{{\textcolor{atl-lst-br}{]}}}{1}
+     {\{}{{\textcolor{atl-lst-br}{\{}}}{1}
+     {\}}{{\textcolor{atl-lst-br}{\}}}}{1}
+     {==}{{\textcolor{atl-lst-op}{==}}}{2}
+     {!=}{{\textcolor{atl-lst-op}{!=}}}{2}
+     {<=}{{\textcolor{atl-lst-op}{<=}}}{2}
+     {>=}{{\textcolor{atl-lst-op}{>=}}}{2},
+}
+
+% ---- listings: give every glyph its own color ---------------------------------------------
+% Ordinary punctuation has no style of its own (\lst@thestyle is \relax), so it inherits the
+% surrounding text color. Inside a breakable box (solution, problem, codebox ...) that color
+% is black again on every page after the first, so characters such as & # % ^ ~ | `  turned
+% black on a dark theme. The OutputOther hook runs just before such a token is typeset:
+% give it the code color. `)' gets the bracket color: with breaklines=true listings
+% re-defines `)' itself (to allow a break after it), which bypasses any literate rule.
+\def\atl@cparen{)}
+\lst@AddToHook{OutputOther}{%
+  \ifx\lst@thestyle\relax
+    \edef\atl@tok{\the\lst@token}%
+    \ifx\atl@tok\atl@cparen
+      \def\lst@thestyle{\color{atl-lst-br}}%
+    \else
+      \def\lst@thestyle{\color{atl-lst-fg}}%
+    \fi
+  \fi}
+
+% inline code (\lstinline) inside Persian text: typeset the snippet left-to-right, otherwise
+% it comes out as "pid(waitpid , status& ,0 );" instead of "waitpid(pid, &status, 0);"
+\ifatlfa
+  \lst@AddToHook{Init}{\lst@ifdisplaystyle\else\beginL\fi}
+  \lst@AddToHook{DeInit}{\lst@ifdisplaystyle\else\endL\fi}
+\fi
+
+% a few extra built-ins per language (second keyword class)
+\lstdefinelanguage{atlPython}[]{Python}{
+  morekeywords=[2]{print,len,range,enumerate,open,zip,map,filter,sorted,sum,min,max,abs,int,float,str,list,dict,set,tuple,isinstance,super,type},
+  morekeywords=[3]{self,cls,True,False,None}}
+\lstdefinelanguage{atlC}[]{C}{
+  morekeywords=[2]{printf,scanf,malloc,calloc,free,memcpy,memset,strlen,uint8_t,uint16_t,uint32_t,int8_t,int16_t,int32_t,size_t,bool},
+  morekeywords=[3]{NULL,true,false}}
+% friendly names -> our extended languages (plain lstlisting keeps the stock lexers)
+\def\atl@l@Python{atlPython}\def\atl@l@python{atlPython}\def\atl@l@C{atlC}
+\newcommand{\atl@maplang}[1]{\ifcsname atl@l@#1\endcsname\csname atl@l@#1\endcsname\else #1\fi}
+\lstset{style=atl-lst}
+\atldefault{listing}{darcula}
+\edef\atl@tmp{\atlmeta{listing}}
+\expandafter\atlsetlisting\expandafter{\atl@tmp}
+
+% ---- framed code box ----------------------------------------------------------------
+\newtcblisting{codebox}[2][]{%
+  enhanced,breakable,listing only,
+  listing options/.expanded={style=atl-lst,language=\atl@maplang{#2},numbers=none,frame=none,xleftmargin=0pt,framexleftmargin=0pt,backgroundcolor={}},
+  colback=atl-lst-bg,colupper=atl-lst-fg,colframe=atl-lst-bg!70!atl-lst-fg,boxrule=0.5pt,arc=3pt,
+  borderline \atl@start={3pt}{0pt}{atl-accent},
+  left=10pt,right=8pt,top=5pt,bottom=5pt,before skip=0.8em,after skip=0.8em,
+  fonttitle=\atl@ltr\small\ttfamily,coltitle=atl-lst-fg,colbacktitle=atl-lst-bg!88!atl-lst-fg,
+  title={#2},#1}
+\newcommand{\atlinputcode}[3][]{%
+  \tcbinputlisting{enhanced,breakable,listing only,
+    listing file={#3},
+    listing options/.expanded={style=atl-lst,language=\atl@maplang{#2},numbers=none,frame=none,xleftmargin=0pt,framexleftmargin=0pt,backgroundcolor={}},
+    colback=atl-lst-bg,colupper=atl-lst-fg,colframe=atl-lst-bg!70!atl-lst-fg,boxrule=0.5pt,arc=3pt,
+    borderline \atl@start={3pt}{0pt}{atl-accent},
+    left=10pt,right=8pt,top=5pt,bottom=5pt,before skip=0.8em,after skip=0.8em,
+    fonttitle=\atl@ltr\small\ttfamily,coltitle=atl-lst-fg,colbacktitle=atl-lst-bg!88!atl-lst-fg,
+    title={#2},#1}}
+\makeatother

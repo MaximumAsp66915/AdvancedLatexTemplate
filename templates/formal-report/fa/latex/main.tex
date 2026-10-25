@@ -1,0 +1,34 @@
+% !TeX program = xelatex
+\documentclass[12pt,a4paper]{report}
+
+\input{atl/atl-keys}                      % ۱. کلیدهای پیکربندی
+\atlset{language=fa, category=formal-report, % ۲. مشخصات این قالب (آزادانه تغییر دهید)
+        titlepage=cover, margins=formal, linespread=1.4, parstyle=indent,
+        fafont=felmi, headfont=sans,
+        infofields={author,studentid,supervisor,advisor,term,date},
+        title={عنوان گزارش}, date={\today}}
+\input{config}                            % ۳. مقادیر شما (به‌وسیله‌ی mktex نوشته می‌شود)
+\input{atl/atl}                           % ۴. موتور قالب
+\input{preamble/local}                    % ۵. ماکروها و تنظیمات شخصی شما
+
+\begin{document}
+\atlmaketitle                             % صفحه‌ی جلد (بدون شماره‌ی صفحه)
+
+\atlfrontmatter                           % شماره‌ی صفحه با حروف (آ، ب، پ، ...)
+\input{frontmatter/abstract}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\atlmainmatter                            % شماره‌ی صفحه با عدد، از ۱
+\input{chapters/01-introduction}
+\input{chapters/02-background}
+\input{chapters/03-method}
+\input{chapters/04-results}
+\input{chapters/05-conclusion}
+
+\atlbibliography{refs}
+
+\atlappendix
+\input{appendix/a-supplementary}
+\end{document}

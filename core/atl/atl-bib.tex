@@ -1,0 +1,27 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-bib.tex -- bibliography (BibTeX + IEEEtran, numeric [1], [2], ...)
+%   \atlbibliography{refs}      refs.bib in the project; heading and ToC entry included
+%   key bibstyle = IEEEtran (default)
+% The list is typeset left-to-right (also in Persian documents) because entries are
+% Latin. Cite with \cite{key}. latexmk runs BibTeX automatically.
+% ============================================================================
+\makeatletter
+\atldefault{bibstyle}{IEEEtran}
+\renewenvironment{thebibliography}[1]{%
+  \atlunnumbered{\atlstr{references}}%
+  \begingroup\atl@ltr\small
+  \list{\@biblabel{\@arabic\c@enumiv}}{%
+    \settowidth\labelwidth{\@biblabel{#1}}%
+    \leftmargin\labelwidth \advance\leftmargin\labelsep
+    \usecounter{enumiv}\let\p@enumiv\@empty
+    \renewcommand\theenumiv{\@arabic\c@enumiv}%
+    \itemsep=0.2em}%
+  \sloppy\clubpenalty4000\widowpenalty4000\sfcode`\.\@m}
+ {\def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist\endgroup}
+\newcommand{\atlbibliography}[1]{%
+  \edef\atl@bs{\atlmeta{bibstyle}}%
+  \expandafter\bibliographystyle\expandafter{\atl@bs}%
+  \bibliography{#1}}
+\makeatother

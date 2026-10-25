@@ -1,0 +1,25 @@
+% !TeX program = xelatex
+\documentclass[12pt,a4paper]{article}
+
+\input{atl/atl-keys}                      % 1. configuration keys
+\atlset{category=essay,                   % 2. what this template is (change freely)
+        titlepage=classic, margins=normal, linespread=1.3, parstyle=indent,
+        headfont=serif, enfont=pagella,
+        title={Essay Title}, author={Author Name}, date={\today}}
+\input{config}                            % 3. your values (written by mktex; edit freely)
+\input{atl/atl}                           % 4. the engine
+\input{preamble/local}                    % 5. your own macros and settings
+
+\begin{document}
+\atlmaketitle
+
+\begin{abstract}
+State the question, your thesis and the main line of argument in four or five sentences.
+\end{abstract}
+
+\input{sections/01-introduction}
+\input{sections/02-argument}
+\input{sections/03-conclusion}
+
+\atlbibliography{refs}
+\end{document}

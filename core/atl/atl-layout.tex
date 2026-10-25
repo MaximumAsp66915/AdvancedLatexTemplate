@@ -1,0 +1,34 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-layout.tex -- page geometry, spacing, paragraph style
+%   keys: margins   = normal (default) | narrow | formal | wide
+%         linespread= 1.15 (default)   (setspace factor; formal reports use 1.5)
+%         parstyle  = block (default) | indent
+%   "formal" gives the binding side (start of line: left in English, right in
+%   Persian) 3 cm and the other side 2.5 cm, as in Iranian thesis rules.
+% ============================================================================
+\makeatletter
+\atldefault{margins}{normal}
+\atldefault{linespread}{1.15}
+\atldefault{parstyle}{block}
+
+\newcommand{\atl@setmargins}[4]{% top/bottom, start, end, headheight
+  \ifdefstring{\atl@start}{west}%
+    {\geometry{a4paper,top=#1,bottom=#1,left=#2,right=#3,headheight=#4,headsep=0.8cm,footskip=1.1cm}}%
+    {\geometry{a4paper,top=#1,bottom=#1,right=#2,left=#3,headheight=#4,headsep=0.8cm,footskip=1.1cm}}}
+\atlifeq{margins}{narrow}{\atl@setmargins{2cm}{2cm}{2cm}{16pt}}{%
+\atlifeq{margins}{formal}{\atl@setmargins{2.5cm}{3cm}{2.5cm}{16pt}}{%
+\atlifeq{margins}{wide}{\atl@setmargins{3cm}{3.5cm}{3.5cm}{16pt}}{%
+\atl@setmargins{2.5cm}{2.5cm}{2.5cm}{16pt}}}}
+
+\edef\atl@tmp{\atlmeta{linespread}}
+\expandafter\setstretch\expandafter{\atl@tmp}
+\atlifeq{parstyle}{indent}{%
+  \setlength{\parindent}{0.71cm}\setlength{\parskip}{0pt}%
+}{%
+  \setlength{\parindent}{0pt}\setlength{\parskip}{0.6em plus 0.15em minus 0.1em}%
+}
+\setlength{\emergencystretch}{2em}
+\raggedbottom
+\setlist{itemsep=0.25em,topsep=0.4em,parsep=0pt}
+\makeatother

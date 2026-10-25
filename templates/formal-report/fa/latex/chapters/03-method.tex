@@ -1,0 +1,29 @@
+\chapter{روش پیشنهادی}\label{ch:method}
+
+\section{نمای کلی سامانه}
+طرح کلی را شرح دهید. نمودار بلوکی کمک می‌کند (\cref{fig:blocks}).
+
+\begin{figure}[ht]
+  \centering
+  \begin{LTR}
+  \begin{tikzpicture}[node distance=1.6cm, every node/.style={font=\small},
+      blk/.style={draw=atl-primary, fill=atl-light, rounded corners=2pt, minimum width=2.4cm, minimum height=0.9cm, thick},
+      arr/.style={-{Stealth[length=2.2mm]}, thick, atl-secondary}]
+    \node[blk] (a) {Input};
+    \node[blk, right=of a] (b) {Processing};
+    \node[blk, right=of b] (c) {Output};
+    \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
+  \end{tikzpicture}
+  \end{LTR}
+  \caption{نمودار بلوکی سامانه.}\label{fig:blocks}
+\end{figure}
+
+\section{پیاده‌سازی}
+الگوریتم یا کد اصلی را نشان دهید.
+\begin{codebox}[title=algorithm.py]{Python}
+def moving_average(x, n):
+    return [sum(x[i:i + n]) / n for i in range(len(x) - n + 1)]
+\end{codebox}
+
+\section{جمع‌بندی فصل}
+تصمیم‌های طراحی را خلاصه کنید.

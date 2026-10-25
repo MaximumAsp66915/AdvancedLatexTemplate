@@ -1,0 +1,16 @@
+# Personal defaults for mktex.
+# Run "mktex --init-defaults" to create this file in your user configuration folder
+#   Linux/macOS: ~/.config/mktex/defaults        Windows: %AppData%\mktex\defaults
+# and edit it. Lines are KEY="value". A key can have a language-specific value:
+# DEFAULT_<KEY>_EN or DEFAULT_<KEY>_FA. Any question mktex asks can be pre-answered
+# (DEFAULT_COURSE, DEFAULT_INSTRUCTOR, DEFAULT_TERM, ...). Keep it OUT of the repository.
+DEFAULT_LANG=en
+DEFAULT_AUTHOR_EN="Your Name"
+DEFAULT_AUTHOR_FA="نام و نام خانوادگی"
+DEFAULT_STUDENTID=""
+DEFAULT_UNIVERSITY_EN=""
+DEFAULT_UNIVERSITY_FA=""
+DEFAULT_DEPARTMENT_EN=""
+DEFAULT_DEPARTMENT_FA=""
+# Full path to a logo image used on cover pages (optional)
+DEFAULT_LOGO=""

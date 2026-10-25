@@ -1,0 +1,19 @@
+\section{تحلیل و بحث}
+
+بهره‌ی نظری برابر $R_2/(R_1+R_2)=0.6875$ است. برازش کمترین مربعات روی داده‌ها شیب
+$0.689\pm0.002$ را می‌دهد که در حد یک انحراف معیار با نظریه سازگار است.
+
+\subsection{عدم قطعیت}
+برای نتیجه‌ی $y=f(x_1,\dots,x_n)$ با عدم قطعیت‌های مستقل $u(x_i)$ داریم
+\begin{equation}\label{eq:uncertainty}
+  u(y)=\sqrt{\sum_{i=1}^{n}\Bigl(\pderiv{f}{x_i}\,u(x_i)\Bigr)^{2}}.
+\end{equation}
+
+\subsection{اثر بار}
+با بار \qty{10}{\kilo\ohm}، \cref{eq:divider} در $V_\mathrm{in}=\qty{10}{\volt}$ مقدار $V_\mathrm{out}=\qty{3.77}{\volt}$ را پیش‌بینی می‌کند (اندازه‌گیری: \qty{3.78}{\volt}).
+
+تحلیل خطا بر اساس \cite{taylor1997} و مدار بر اساس \cite{horowitz2015} است.
+
+\begin{resultbox}[نتیجه]
+نسبت مقسم $=0.689\pm0.002$ (نظری $0.6875$).
+\end{resultbox}

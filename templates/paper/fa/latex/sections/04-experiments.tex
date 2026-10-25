@@ -1,0 +1,26 @@
+\section{آزمایش‌ها}
+\Cref{tab:res} روش‌ها را مقایسه می‌کند و \cref{fig:conv} همگرایی را نشان می‌دهد.
+
+\begin{table}[t]
+  \centering\atlrows
+  \caption{خطای روش‌های مقایسه‌شده.}\label{tab:res}
+  \begin{tabular}{@{}lcc@{}}
+    \rowcolor{atl-primary}\atlhead{روش} & \atlhead{خطا} & \atlhead{زمان (s)}\\
+    مبنا & $0.31$ & $12.4$ \\
+    پیشنهادی & $0.12$ & $8.7$ \\
+  \end{tabular}
+\end{table}
+
+\begin{figure}[t]
+  \centering
+  \begin{LTR}
+  \begin{tikzpicture}
+    \begin{axis}[width=\linewidth, height=4.6cm, xlabel={Iteration}, ylabel={Error},
+        ymode=log, grid=both, grid style={atl-muted!25}, every axis plot/.append style={thick}]
+      \addplot[color=atl-primary, domain=1:50, samples=40] {1/x};
+      \addplot[color=atl-accent, domain=1:50, samples=40] {0.3/x^1.5};
+    \end{axis}
+  \end{tikzpicture}
+  \end{LTR}
+  \caption{همگرایی دو روش.}\label{fig:conv}
+\end{figure}

@@ -1,0 +1,19 @@
+\section{Analysis and Discussion}
+
+The theoretical gain is $R_2/(R_1+R_2)=\num{0.6875}$. A least-squares fit of the data gives a slope of
+$\num{0.689}\pm\num{0.002}$, which agrees with the theory within one standard deviation.
+
+\subsection{Uncertainty}
+For a result $y=f(x_1,\dots,x_n)$ with independent uncertainties $u(x_i)$,
+\begin{equation}\label{eq:uncertainty}
+  u(y)=\sqrt{\sum_{i=1}^{n}\Bigl(\pderiv{f}{x_i}\,u(x_i)\Bigr)^{2}}.
+\end{equation}
+
+\subsection{Loading}
+With the \qty{10}{\kilo\ohm} load, \cref{eq:divider} predicts $V_\mathrm{out}=\qty{3.77}{\volt}$ at $V_\mathrm{in}=\qty{10}{\volt}$ (measured: \qty{3.78}{\volt}).
+
+Error analysis follows \cite{taylor1997}; the circuit is standard \cite{horowitz2015}.
+
+\begin{resultbox}[Result]
+Divider ratio $=\num{0.689}\pm\num{0.002}$ (theory $\num{0.6875}$).
+\end{resultbox}

@@ -1,0 +1,25 @@
+\section{طراحی سامانه}
+
+\Cref{fig:arch} معماری را نشان می‌دهد. هر بلوک به یک یا چند نیازمندی در \cref{tab:req} نگاشت می‌شود.
+
+\begin{figure}[ht]
+  \centering
+  \begin{LTR}
+  \begin{tikzpicture}[node distance=1.5cm and 1.4cm, every node/.style={font=\small},
+      blk/.style={draw=atl-primary, fill=atl-light, rounded corners=3pt, minimum width=2.5cm, minimum height=0.95cm, thick, align=center},
+      arr/.style={-{Stealth[length=2.2mm]}, thick, atl-secondary}]
+    \node[blk] (s) {Sensor};
+    \node[blk, right=of s] (m) {Microcontroller};
+    \node[blk, right=of m] (u) {User interface};
+    \node[blk, below=of m] (l) {Data logger};
+    \draw[arr] (s) -- (m); \draw[arr] (m) -- (u); \draw[arr] (m) -- (l);
+  \end{tikzpicture}
+  \end{LTR}
+  \caption{معماری سامانه.}\label{fig:arch}
+\end{figure}
+
+\subsection{تصمیم‌های طراحی}
+\begin{enumerate}
+  \item دوره‌ی نمونه‌برداری با یک تایمر سخت‌افزاری ثابت می‌شود (\lr{R1}).
+  \item داده‌ها در حافظه‌ی غیرفرار ذخیره می‌شوند (\lr{R2}).
+\end{enumerate}

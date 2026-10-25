@@ -1,0 +1,14 @@
+\section{Method}
+\subsection{Problem Formulation}
+Let $\vect{x}\in\R^{n}$ be the input and $f:\R^{n}\to\R$ a smooth objective. We seek
+\begin{equation}\label{eq:opt}
+  \vect{x}^{\star}=\argmin_{\vect{x}}\; f(\vect{x}).
+\end{equation}
+
+\begin{theorem}\label{thm:conv}
+If $f$ is convex and $L$-smooth, gradient descent with step $1/L$ satisfies
+$f(\vect{x}_k)-f^{\star}\le L\norm{\vect{x}_0-\vect{x}^{\star}}^{2}/(2k)$.
+\end{theorem}
+
+\subsection{Algorithm}
+\Cref{eq:opt} is solved by the iteration $\vect{x}_{k+1}=\vect{x}_k-\eta\nabla f(\vect{x}_k)$.

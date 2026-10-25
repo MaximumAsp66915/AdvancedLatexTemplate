@@ -1,0 +1,35 @@
+% !TeX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+\input{atl/atl-keys}                      % ۱. کلیدهای پیکربندی
+\atlset{language=fa, category=project-report, % ۲. مشخصات این قالب (آزادانه تغییر دهید)
+        titlepage=cover, margins=normal, linespread=1.3,
+        infofields={author,studentid,team,course,supervisor,term,date},
+        title={گزارش پروژه}, date={\today}}
+\input{config}                            % ۳. مقادیر شما (به‌وسیله‌ی mktex نوشته می‌شود)
+\input{atl/atl}                           % ۴. موتور قالب
+\input{preamble/local}                    % ۵. ماکروها و تنظیمات شخصی شما
+
+\begin{document}
+\atlmaketitle                             % صفحه‌ی جلد
+
+\atlfrontmatter                           % شماره‌ی صفحه با حروف
+\begin{abstract}
+پروژه را در حدود ۱۵۰ کلمه خلاصه کنید: مسئله، آنچه ساخته‌اید، شیوه‌ی آزمون و نتیجه‌ی اصلی.
+\atlkeywords{سامانه‌های نهفته، کنترل، نمونه‌ی اولیه}
+\end{abstract}
+\tableofcontents
+
+\atlmainmatter                            % شماره‌ی صفحه با عدد، از ۱
+\input{sections/01-introduction}
+\input{sections/02-requirements}
+\input{sections/03-design}
+\input{sections/04-implementation}
+\input{sections/05-results}
+\input{sections/06-conclusion}
+
+\atlbibliography{refs}
+
+\atlappendix
+\input{appendix/manual}
+\end{document}

@@ -1,0 +1,70 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-macros.tex -- text helpers and a small, general engineering/maths notation set
+%
+% Conventions (IEEE style): variables italic; descriptive subscripts, operators and
+% units upright; vectors and matrices bold italic through ONE command each (\vect,
+% \mat) so the look can be changed in one place. Units always go through siunitx:
+%   \valunit{10}{\kilo\ohm}   \qty{2.2}{\micro\farad}   \num{1.5e-3}
+% No LaTeX built-ins are redefined (\H \P \Re \Im \vec \div ...).
+% Domain-specific packs (electronics, power, RF, ML ...) belong in preamble/local.tex.
+% ============================================================================
+\makeatletter
+% ---- text helpers ----------------------------------------------------------------
+\newcommand{\keyterm}[1]{\textbf{\textcolor{atl-primary}{#1}}}
+\newcommand{\alert}[1]{\textbf{\textcolor{atl-warning}{#1}}}
+\newcommand{\ok}[1]{\textbf{\textcolor{atl-success}{#1}}}
+\newcommand{\highlight}[1]{\colorbox{atl-accent!28}{\strut #1}}
+\newcommand{\muted}[1]{\textcolor{atl-muted}{#1}}
+\newcommand{\todo}[1]{\textcolor{atl-warning}{\textbf{[TODO: #1]}}}
+
+% ---- notation ---------------------------------------------------------------------
+\newcommand{\qtag}[2]{\ensuremath{#1_{\mathrm{#2}}}}              % R_in
+\newcommand{\qindex}[2]{\ensuremath{#1_{#2}}}                       % x_n
+\newcommand{\qtagindex}[3]{\ensuremath{#1_{\mathrm{#2},#3}}}       % I_ref,k
+\newcommand{\vect}[1]{\ensuremath{\bm{#1}}}
+\newcommand{\mat}[1]{\ensuremath{\bm{#1}}}
+\newcommand{\uvec}[1]{\ensuremath{\hat{\bm{#1}}}}
+\newcommand{\phasor}[1]{\ensuremath{\tilde{#1}}}
+\newcommand{\conj}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\trans}[1]{\ensuremath{{#1}^{\mathsf{T}}}}
+\newcommand{\herm}[1]{\ensuremath{{#1}^{\mathsf{H}}}}
+\newcommand{\pinv}[1]{\ensuremath{{#1}^{\dagger}}}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\inner}{\langle}{\rangle}
+\newcommand{\ddiff}{\ensuremath{\mathop{}\!\mathrm{d}}}
+\newcommand{\deriv}[2]{\ensuremath{\frac{\mathrm{d}#1}{\mathrm{d}#2}}}
+\newcommand{\nderiv}[3]{\ensuremath{\frac{\mathrm{d}^{#3}#1}{\mathrm{d}#2^{#3}}}}
+\newcommand{\pderiv}[2]{\ensuremath{\frac{\partial#1}{\partial#2}}}
+\newcommand{\integral}[4]{\ensuremath{\int_{#1}^{#2}#3\,\mathrm{d}#4}}
+\newcommand{\econst}{\ensuremath{\mathrm{e}}}
+\newcommand{\junit}{\ensuremath{\mathrm{j}}}
+\newcommand{\iunit}{\ensuremath{\mathrm{i}}}
+\newcommand{\jw}{\ensuremath{\junit\omega}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator{\rect}{rect}
+\DeclareMathOperator{\Expect}{\mathbb{E}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Prob}{\mathbb{P}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% ---- units (siunitx v3) -------------------------------------------------------------
+\newcommand{\valunit}[3][]{\qty[#1]{#2}{#3}}
+\DeclareSIUnit{\dBm}{dBm}
+\DeclareSIUnit{\var}{var}
+\DeclareSIUnit{\rpm}{rpm}
+\DeclareSIUnit{\ppm}{ppm}
+\DeclareSIUnit{\pu}{p.u.}
+\makeatother

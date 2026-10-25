@@ -1,0 +1,26 @@
+\section{مبانی نظری}
+
+مقسم مقاومتی بدون بار (\cref{fig:divider}) ولتاژ خروجی
+\begin{equation}\label{eq:divider}
+  V_\mathrm{out} = V_\mathrm{in}\,\frac{R_2}{R_1+R_2}
+\end{equation}
+را می‌دهد. اگر بار $R_L$ با $R_2$ موازی شود، در \cref{eq:divider} به‌جای $R_2$ باید
+$R_2\parallel R_L = R_2R_L/(R_2+R_L)$ قرار داد.
+
+\begin{figure}[ht]
+  \centering
+  \begin{LTR}
+  \begin{circuitikz}[scale=0.9, transform shape]
+    \draw (0,0) to[V, l=$V_\mathrm{in}$] (0,3)
+          to[R, l=$R_1$] (3,3)
+          to[R, l=$R_2$, -*] (3,0) -- (0,0);
+    \draw (3,3) to[short, -o] (4.2,3) node[right]{$V_\mathrm{out}$};
+  \end{circuitikz}
+  \end{LTR}
+  \caption{مقسم ولتاژ مقاومتی.}\label{fig:divider}
+\end{figure}
+
+\begin{definitionbox}[اثر بارگذاری]
+ابزار اندازه‌گیری با مقاومت ورودی $R_L$ از مدار جریان می‌کشد و کمیتی را که اندازه می‌گیرد کاهش می‌دهد؛
+این اثر فقط وقتی ناچیز است که $R_L\gg R_2$ باشد.
+\end{definitionbox}

@@ -1,0 +1,37 @@
+\section{برنامه‌نویسی}
+
+\begin{problem}[مشتق عددی][۱۵]
+مشتق به روش تفاضل مرکزی را پیاده‌سازی کنید و آن را برای $f(x)=\sin x$ در $x=1$ آزمایش کنید.
+خطا را برای $h=10^{-1},10^{-3},10^{-5}$ گزارش دهید.
+\end{problem}
+
+\begin{solution}
+تفاضل مرکزی به‌صورت
+\begin{equation}\label{eq:central}
+  f'(x)\approx\frac{f(x+h)-f(x-h)}{2h}
+\end{equation}
+است و خطای برشی آن از مرتبه‌ی $\mathcal{O}(h^2)$ است (\cref{eq:central}). کد و نتایج در ادامه آمده است.
+
+\begin{codebox}[title=derivative.py]{Python}
+import numpy as np
+
+def central_diff(f, x, h):
+    return (f(x + h) - f(x - h)) / (2 * h)
+
+for h in (1e-1, 1e-3, 1e-5):
+    err = abs(central_diff(np.sin, 1.0, h) - np.cos(1.0))
+    print(f"h = {h:.0e}   error = {err:.2e}")
+\end{codebox}
+
+\begin{center}\atlrows
+  \captionof{table}{خطای تفاضل مرکزی در $x=1$.}\label{tab:err}
+  \begin{tabular}{@{}cc@{}}
+    \rowcolor{atl-primary}\atlhead{$h$} & \atlhead{خطا}\\
+    $10^{-1}$ & $9.00\times10^{-4}$ \\
+    $10^{-3}$ & $9.00\times10^{-8}$ \\
+    $10^{-5}$ & $9.00\times10^{-12}$ \\
+  \end{tabular}
+\end{center}
+
+\Cref{tab:err} کاهش مرتبه‌ی دوم خطا را نشان می‌دهد.
+\end{solution}

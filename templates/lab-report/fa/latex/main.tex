@@ -1,0 +1,28 @@
+% !TeX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+\input{atl/atl-keys}                      % ۱. کلیدهای پیکربندی
+\atlset{language=fa, category=lab-report, % ۲. مشخصات این قالب (آزادانه تغییر دهید)
+        titlepage=block, margins=normal, linespread=1.2,
+        infofields={author,studentid,partners,course,instructor,experiment,performed,submissiondate},
+        title={گزارش آزمایشگاه}, submissiondate={\today}}
+\input{config}                            % ۳. مقادیر شما (به‌وسیله‌ی mktex نوشته می‌شود)
+\input{atl/atl}                           % ۴. موتور قالب
+\input{preamble/local}                    % ۵. ماکروها و تنظیمات شخصی شما
+
+\begin{document}
+\atlmaketitle
+
+\input{sections/01-objective}
+\input{sections/02-theory}
+\input{sections/03-apparatus}
+\input{sections/04-procedure}
+\input{sections/05-results}
+\input{sections/06-analysis}
+\input{sections/07-conclusion}
+
+\atlbibliography{refs}
+
+\atlappendix
+\input{appendix/raw-data}
+\end{document}

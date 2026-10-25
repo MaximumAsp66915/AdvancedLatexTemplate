@@ -1,0 +1,36 @@
+% !TeX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+\input{atl/atl-keys}                      % 1. configuration keys
+\atlset{category=project-report,          % 2. what this template is (change freely)
+        titlepage=cover, margins=normal, linespread=1.2,
+        infofields={author,studentid,team,course,supervisor,term,date},
+        title={Project Report}, date={\today}}
+\input{config}                            % 3. your values (written by mktex; edit freely)
+\input{atl/atl}                           % 4. the engine
+\input{preamble/local}                    % 5. your own macros and settings
+
+\begin{document}
+\atlmaketitle                             % cover page
+
+\atlfrontmatter                           % roman page numbers
+\begin{abstract}
+Summarise the project in about 150 words: the problem, what you built, how you tested it and the
+main result.
+\atlkeywords{embedded systems, control, prototype}
+\end{abstract}
+\tableofcontents
+
+\atlmainmatter                            % arabic page numbers from 1
+\input{sections/01-introduction}
+\input{sections/02-requirements}
+\input{sections/03-design}
+\input{sections/04-implementation}
+\input{sections/05-results}
+\input{sections/06-conclusion}
+
+\atlbibliography{refs}
+
+\atlappendix
+\input{appendix/manual}
+\end{document}

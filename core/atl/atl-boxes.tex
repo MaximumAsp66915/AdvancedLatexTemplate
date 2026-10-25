@@ -1,0 +1,53 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-boxes.tex -- callout boxes (tcolorbox) and homework problem/solution
+%
+%   \begin{notebox}[Optional title] ... \end{notebox}     (also warningbox, tipbox,
+%   resultbox, definitionbox, examplebox)
+%   \begin{problem}[Title][points] ... \end{problem}
+%   \begin{solution} ... \end{solution}
+% The colored bar sits on the start side of the line (left in English, right in
+% Persian). All colors come from the active palette.
+% ============================================================================
+\makeatletter
+\tcbset{
+  atl callout/.style={
+    enhanced,breakable,frame hidden,boxrule=0pt,sharp corners,
+    colback=#1!7!white,
+    borderline \atl@start={3.2pt}{0pt}{#1},
+    left=10pt,right=10pt,top=5pt,bottom=5pt,
+    before skip=0.9em,after skip=0.9em,
+    fonttitle=\atl@headfont\bfseries,coltitle=#1!82!black,
+    attach title to upper={\par\smallskip},
+  },
+}
+\newcommand{\atl@newcallout}[3]{% env name, color, string key
+  \newtcolorbox{#1}[1][\atlstr{#3}]{atl callout=#2,title={##1}}}
+\atl@newcallout{notebox}{atl-info}{note}
+\atl@newcallout{warningbox}{atl-warning}{warning}
+\atl@newcallout{tipbox}{atl-success}{tip}
+\atl@newcallout{resultbox}{atl-result}{result}
+\atl@newcallout{definitionbox}{atl-primary}{definition}
+\atl@newcallout{examplebox}{atl-secondary-text}{example}
+
+% ---- homework: problem / solution ---------------------------------------------
+\newcounter{atlproblem}
+\NewDocumentEnvironment{problem}{O{} O{}}{%
+  \refstepcounter{atlproblem}%
+  \begin{tcolorbox}[enhanced,breakable,sharp corners,boxrule=0.6pt,
+    colframe=atl-primary,colback=atl-light,
+    left=10pt,right=10pt,top=6pt,bottom=6pt,before skip=1.2em,after skip=0.6em,
+    fonttitle=\atl@headfont\bfseries,coltitle=white,colbacktitle=atl-primary,
+    toptitle=3pt,bottomtitle=3pt,
+    title={\atlstr{problem}~\theatlproblem\ifstrempty{#1}{}{\,\textemdash\,#1}%
+      \ifstrempty{#2}{}{\hfill\normalfont\small #2~\atlstr{points}}}]%
+}{\end{tcolorbox}}
+\NewDocumentEnvironment{solution}{O{}}{%
+  \begin{tcolorbox}[enhanced,breakable,sharp corners,boxrule=0pt,frame hidden,
+    colback=white,borderline \atl@start={2.4pt}{0pt}{atl-secondary},
+    left=12pt,right=8pt,top=4pt,bottom=4pt,before skip=0.2em,after skip=1.2em,
+    fonttitle=\atl@headfont\bfseries,coltitle=atl-secondary-text,
+    attach title to upper={\par\smallskip},
+    title={\atlstr{solution}\ifstrempty{#1}{}{\,\textemdash\,#1}}]%
+}{\end{tcolorbox}}
+\makeatother

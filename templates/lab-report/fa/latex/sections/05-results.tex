@@ -1,0 +1,30 @@
+\section{داده‌ها و نتایج}
+
+\Cref{tab:data} اندازه‌گیری‌ها را نشان می‌دهد و \cref{fig:iv} آن‌ها را با خط نظری مقایسه می‌کند.
+
+\begin{center}\atlrows
+  \captionof{table}{خروجی اندازه‌گیری‌شده‌ی مقسم (دقت \qty{0.01}{\volt}).}\label{tab:data}
+  \begin{tabular}{@{}S[table-format=2.2]S[table-format=1.2]S[table-format=1.2]@{}}
+    \rowcolor{atl-primary}{\atlhead{$V_\mathrm{in}$ (V)}} & {\atlhead{$V_\mathrm{out}$ (V)}} & {\atlhead{نظری (V)}}\\
+    2.00 & 1.38 & 1.38 \\
+    4.00 & 2.76 & 2.75 \\
+    6.00 & 4.14 & 4.13 \\
+    8.00 & 5.51 & 5.50 \\
+    10.00 & 6.89 & 6.88 \\
+  \end{tabular}
+\end{center}
+
+\begin{figure}[ht]
+  \centering
+  \begin{LTR}
+  \begin{tikzpicture}
+    \begin{axis}[width=0.78\linewidth, height=6.2cm, xlabel={$V_\mathrm{in}$ (V)}, ylabel={$V_\mathrm{out}$ (V)},
+        grid=both, grid style={atl-muted!25}, legend pos=north west, every axis plot/.append style={thick}]
+      \addplot[only marks, mark=*, color=atl-primary] coordinates {(2,1.38)(4,2.76)(6,4.14)(8,5.51)(10,6.89)};
+      \addplot[color=atl-accent, domain=0:10] {0.6875*x};
+      \legend{اندازه‌گیری, نظری}
+    \end{axis}
+  \end{tikzpicture}
+  \end{LTR}
+  \caption{ولتاژ خروجی بر حسب ولتاژ ورودی.}\label{fig:iv}
+\end{figure}

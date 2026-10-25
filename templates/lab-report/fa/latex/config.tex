@@ -1,0 +1,59 @@
+% به‌وسیله‌ی mktex نوشته می‌شود. آزادانه ویرایش کنید؛ هر مقداری که اینجا بنویسید بر پیش‌فرض‌های قالب غالب است.
+\atlset{
+  language  = fa,
+  title     = {آزمایش ۱: مقسم ولتاژ},
+  author    = {نام و نام خانوادگی},
+  studentid = {},
+  partners  = {},
+  course    = {آزمایشگاه الکترونیک},
+  instructor= {نام استاد},
+  experiment= {۱ --- مقسم ولتاژ},
+  performed = {},
+  palette   = cyan,
+  listing   = bright,
+}
+
+% ============================================================================
+%  فهرست گزینه‌ها  -- همه‌ی کلیدهای زیر اختیاری‌اند.
+%  هر خط را در بلوک \atlset{...} بالا کپی کنید (کلیدها با ویرگول انگلیسی جدا می‌شوند).
+%  قالب نوشتن:   key = value,          واژه یا عدد ساده به آکولاد نیاز ندارد
+%                key = {دو واژه، یا ویرگول},     متن دارای فاصله یا ویرگول در آکولاد بیاید
+%  اولویت: پیش‌فرض‌های قالب < همین پرونده < preamble/local.tex  (مورد بعدی غالب است).
+%  مسیرها نسبت به همین پوشه (latex/) نوشته می‌شوند، مثلاً  logo = fig/logo.png
+%  نام کلیدها و مقدارهای انتخابی را لاتین و بدون آکولاد بنویسید.
+% ----------------------------------------------------------------------------
+%  ظاهر
+%    palette    = blue | red | gray | cyan | magenta | yellow | green | sunset | ocean | berry | neon
+%    listing    = darcula | dark | bright | github           (پوسته‌ی رنگی بلوک کد)
+%    fafont     = vazirmatn | felmi                          (فونت متن فارسی؛ پیش‌فرض vazirmatn)
+%    fascale    = 0.95                                       (مقیاس فونت فارسی، عدد اعشاری با نقطه؛ vazirmatn: 0.95، felmi: 1.1)
+%    headfont   = sans | serif                               (سرتیترها و برچسب‌ها)
+%    headsize   = normal | compact                           (اندازه‌ی سرتیتر؛ compact برای مقاله)
+%  صفحه‌آرایی
+%    margins    = normal | narrow | formal | wide            (formal: ۳ سانتی‌متر سمت صحافی، یعنی راست)
+%    linespread = 1.15                                       (عدد اعشاری بدون یکا؛ ۱٫۵ برابر: 1.5)
+%    parstyle   = block | indent                             (بند با فاصله / بند با تورفتگی)
+%    numbering  = flat | section                             (section: شماره‌ی معادله، شکل و جدول به‌صورت ۲-۱، ۲-۲ ...)
+%    sectionbreak = off | on                                 (on: هر \section از صفحه‌ی تازه شروع شود)
+%  صفحه‌ی عنوان
+%    titlepage  = block | cover | classic | none             (بنر / جلد کامل / سبک مقاله / هیچ)
+%    infofields = {author,studentid,course,instructor,duedate}
+%                 فهرست کلیدهایی که در جدول مشخصات می‌آیند؛ جداشده با ویرگول و بدون فاصله. کلیدهای مجاز:
+%                 author studentid course coursecode instructor supervisor advisor team partners
+%                 experiment labsection term date duedate submissiondate performed university department
+%    doctype    = {گزارش نهایی}                              (جایگزین برچسب خودکار «تمرین»، «گزارش» و ...)
+%    logo       = fig/logo.png                               (فقط جلد؛ png، jpg یا pdf)
+%  مشخصات سند  (متن؛ مقدار تهی نادیده گرفته می‌شود)
+%    title subtitle author studentid course coursecode instructor supervisor advisor team partners
+%    experiment labsection term date duedate submissiondate performed university department
+%    affiliation keywords
+%    date = {\today}   (تاریخ شمسی)     یا    date = {۲۱ اسفند ۱۴۰۴}
+%    keywords = {واژه‌ی نخست، واژه‌ی دوم}                      (مقاله و جستار: زیر چکیده)
+%    affiliation = {گروه \\ دانشگاه}                          (صفحه‌ی عنوان classic؛ \\ خط را می‌شکند)
+%  سرصفحه و مراجع
+%    header      = on | off                                  (سرصفحه‌ی جاری)
+%    headerstart = {عنوان کوتاه}                             (سمت آغاز، یعنی راست؛ پیش‌فرض: درس، وگرنه عنوان)
+%    headerend   = {نام فصل}                                 (سمت پایان؛ پیش‌فرض: بخش جاری)
+%    bibstyle    = IEEEtran                                  (هر سبک BibTeX نصب‌شده، مثل plain یا ieeetr)
+%  تغییر در میانه‌ی نوشتن:   \atlsetpalette{green}   \atlsetlisting{bright}   (docs/USER-MANUAL.md)
+% ============================================================================

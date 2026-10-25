@@ -1,0 +1,75 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-lang-en.tex -- English language layer
+%   keys read: enfont = termes (default) | pagella | lm
+% Provides the same hooks as atl-lang-fa.tex (see the list at the end).
+% ============================================================================
+\makeatletter
+\defaultfontfeatures{Ligatures=TeX}
+
+\newcommand{\atl@setmain}[1]{\IfFontExistsTF{#1}{\setmainfont{#1}}{}}
+\atlifeq{enfont}{lm}{}{%
+  \atlifeq{enfont}{pagella}{\atl@setmain{TeX Gyre Pagella}}{\atl@setmain{TeX Gyre Termes}}}
+\IfFontExistsTF{TeX Gyre Heros}{\setsansfont[Scale=MatchLowercase]{TeX Gyre Heros}}{}
+\IfFontExistsTF{Latin Modern Mono}{\setmonofont[Scale=MatchLowercase]{Latin Modern Mono}}{}
+
+% fontspec points the math 'operators' font at the text font, which breaks \mathrm{\Omega}
+% and friends (upright Greek); keep upright math symbols in Computer Modern.
+\AtBeginDocument{%
+  \SetSymbolFont{operators}{normal}{OT1}{cmr}{m}{n}%
+  \SetSymbolFont{operators}{bold}{OT1}{cmr}{bx}{n}}
+
+% cleveref names
+\crefname{figure}{Figure}{Figures}\Crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}\Crefname{table}{Table}{Tables}
+\crefname{equation}{Equation}{Equations}\Crefname{equation}{Equation}{Equations}
+\crefname{section}{Section}{Sections}\Crefname{section}{Section}{Sections}
+\crefname{chapter}{Chapter}{Chapters}\Crefname{chapter}{Chapter}{Chapters}
+
+% ---- direction hooks (start side of a line = left) --------------------------
+\def\atl@start{west}\def\atl@end{east}      % TikZ / tcolorbox sides
+\def\atl@L{L}\def\atl@R{R}                  % fancyhdr: start / end of the line
+\newcommand{\atl@sf}{\sffamily}                 % sans family for headings / labels
+\newcommand{\atl@ltr}{}                     % force left-to-right (code, bibliography)
+\newcommand{\atl@lr}[1]{#1}                 % inline left-to-right run
+\newcommand{\atl@numsep}{.}                 % 2.1  (chapter . item)
+\newcommand{\atl@frontnumbering}{roman}     % \pagenumbering style for front matter
+\newcommand{\atl@appendixnumber}[1]{\Alph{#1}}
+\newcommand{\atl@startskip}[1]{\hspace*{#1}}% indent from the start side
+\newcommand{\atl@flushstart}{\raggedright}  % ragged-right text, flush to the start side
+
+% ---- labels ----------------------------------------------------------------
+\atldefstr{note}{Note}                 \atldefstr{warning}{Warning}
+\atldefstr{tip}{Tip}                   \atldefstr{result}{Result}
+\atldefstr{definition}{Definition}     \atldefstr{example}{Example}
+\atldefstr{remark}{Remark}             \atldefstr{theorem}{Theorem}
+\atldefstr{lemma}{Lemma}               \atldefstr{proposition}{Proposition}
+\atldefstr{corollary}{Corollary}       \atldefstr{proof}{Proof}
+\atldefstr{problem}{Problem}           \atldefstr{solution}{Solution}
+\atldefstr{points}{points}             \atldefstr{point}{point}
+\atldefstr{abstract}{Abstract}         \atldefstr{keywords}{Keywords}
+\atldefstr{contents}{Contents}         \atldefstr{listoffigures}{List of Figures}
+\atldefstr{listoftables}{List of Tables}
+\atldefstr{references}{References}     \atldefstr{appendix}{Appendix}
+\atldefstr{chapter}{Chapter}           \atldefstr{figure}{Figure}
+\atldefstr{table}{Table}               \atldefstr{page}{Page}
+\atldefstr{author}{Author}             \atldefstr{authors}{Authors}
+\atldefstr{studentid}{Student ID}      \atldefstr{course}{Course}
+\atldefstr{coursecode}{Course code}    \atldefstr{instructor}{Instructor}
+\atldefstr{supervisor}{Supervisor}     \atldefstr{advisor}{Advisor}
+\atldefstr{team}{Team}                 \atldefstr{partners}{Lab partners}
+\atldefstr{experiment}{Experiment}     \atldefstr{labsection}{Lab section}
+\atldefstr{term}{Term}                 \atldefstr{date}{Date}
+\atldefstr{duedate}{Due date}          \atldefstr{submissiondate}{Submitted}
+\atldefstr{performed}{Performed on}
+\atldefstr{university}{University}     \atldefstr{department}{Department}
+\atldefstr{type-homework}{Homework}
+\atldefstr{type-lab-report}{Lab Report}
+\atldefstr{type-project-report}{Project Report}
+\atldefstr{type-formal-report}{Report}
+\atldefstr{type-essay}{Essay}
+\atldefstr{type-paper}{Paper}
+\makeatother
+% Hooks every language layer must define:
+%   \atl@start \atl@end \atl@L \atl@R \atl@ltr \atl@lr \atl@numsep
+%   \atl@sf \atl@frontnumbering \atl@appendixnumber \atl@startskip \atl@flushstart, and all \atldefstr labels.

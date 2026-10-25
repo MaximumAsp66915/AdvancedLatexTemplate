@@ -1,0 +1,27 @@
+\section{پرسش‌های کوتاه}
+
+\begin{problem}[یکاها][۵]
+مقاومت \qty{4.7}{\kilo\ohm} جریان \qty{2.5}{\milli\ampere} را از خود عبور می‌دهد. توان مصرفی آن چقدر است؟
+\end{problem}
+
+\begin{solution}
+$P = I^2R = (\qty{2.5}{\milli\ampere})^2\cdot\qty{4.7}{\kilo\ohm} \approx \qty{29.4}{\milli\watt}$.
+\end{solution}
+
+\begin{notebox}
+برای اعداد همراه با یکا از \lr{\texttt{\textbackslash qty}} و \lr{\texttt{\textbackslash unit}} (بسته‌ی \lr{siunitx}) و برای نمادگذاری از
+\lr{\texttt{\textbackslash vect}}، \lr{\texttt{\textbackslash mat}} و \lr{\texttt{\textbackslash trans}} استفاده کنید.
+فهرست کامل در پرونده‌ی \lr{\texttt{atl/atl-macros.tex}} است.
+\end{notebox}
+
+\begin{tipbox}[راهنما]
+همه‌ی شکل‌ها را در پوشه‌ی \lr{\texttt{fig/}} بگذارید و با \lr{\texttt{\textbackslash cref}} به آن‌ها ارجاع دهید.
+\end{tipbox}
+
+\begin{problem}[اثبات][۱۰]
+نشان دهید $\sqrt{2}$ گویا نیست.
+\end{problem}
+
+\begin{proof}
+فرض کنید $\sqrt2=p/q$ با کسر ساده‌نشدنی باشد. آنگاه $p^2=2q^2$، پس $p$ زوج است، مثلاً $p=2k$. در نتیجه $q^2=2k^2$ و $q$ نیز زوج است که با ساده‌نشدنی بودن کسر در تناقض است.
+\end{proof}

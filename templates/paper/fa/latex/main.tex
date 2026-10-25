@@ -1,0 +1,32 @@
+% !TeX program = xelatex
+\documentclass[10pt,a4paper,twocolumn]{article}
+
+\input{atl/atl-keys}                      % ۱. کلیدهای پیکربندی
+\atlset{language=fa, category=paper,      % ۲. مشخصات این قالب (آزادانه تغییر دهید)
+        titlepage=classic, margins=narrow, linespread=1.15, parstyle=indent,
+        fafont=felmi, headfont=sans, headsize=compact,
+        headerstart={عنوان کوتاه},
+        title={عنوان مقاله}, author={نام نویسنده}, affiliation={گروه، دانشگاه},
+        keywords={واژه‌ی نخست، واژه‌ی دوم، واژه‌ی سوم}, date={\today}}
+\input{config}                            % ۳. مقادیر شما (به‌وسیله‌ی mktex نوشته می‌شود)
+\input{atl/atl}                           % ۴. موتور قالب
+\input{preamble/local}                    % ۵. ماکروها و تنظیمات شخصی شما
+\setlength{\columnsep}{0.8cm}
+
+\begin{document}
+\twocolumn[%
+  \atlmaketitle
+  \begin{abstract}
+  مسئله، روش، مهم‌ترین نتایج و اهمیت آن‌ها را در حدود ۱۵۰ کلمه خلاصه کنید.
+  \atlkeywords{\atlmeta{keywords}}
+  \end{abstract}
+]
+
+\input{sections/01-introduction}
+\input{sections/02-related-work}
+\input{sections/03-method}
+\input{sections/04-experiments}
+\input{sections/05-conclusion}
+
+\atlbibliography{refs}
+\end{document}

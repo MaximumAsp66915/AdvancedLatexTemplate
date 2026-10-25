@@ -1,0 +1,34 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-theorems.tex -- theorem-like environments (amsthm), colored by the palette
+%   theorem lemma proposition corollary (shared counter)  definition example remark  proof
+% Labels come from the language layer; bodies are upright (Persian has no italic).
+% ============================================================================
+\makeatletter
+\newtheoremstyle{atlplain}
+  {0.8em}{0.8em}{\normalfont}{0pt}
+  {\atl@headfont\bfseries\color{atl-primary}}{.}{0.5em}
+  {\thmname{#1}\thmnumber{\,#2}\thmnote{\normalfont\ (#3)}}
+\newtheoremstyle{atldef}
+  {0.8em}{0.8em}{\normalfont}{0pt}
+  {\atl@headfont\bfseries\color{atl-secondary-text}}{.}{0.5em}
+  {\thmname{#1}\thmnumber{\,#2}\thmnote{\normalfont\ (#3)}}
+\newtheoremstyle{atlremark}
+  {0.6em}{0.6em}{\normalfont}{0pt}
+  {\atl@headfont\bfseries\color{atl-muted}}{.}{0.5em}
+  {\thmname{#1}\thmnumber{\,#2}\thmnote{\normalfont\ (#3)}}
+
+\theoremstyle{atlplain}
+\newtheorem{theorem}{\atlstr{theorem}}
+\newtheorem{lemma}[theorem]{\atlstr{lemma}}
+\newtheorem{proposition}[theorem]{\atlstr{proposition}}
+\newtheorem{corollary}[theorem]{\atlstr{corollary}}
+\theoremstyle{atldef}
+\newtheorem{definition}{\atlstr{definition}}
+\newtheorem{example}{\atlstr{example}}
+\theoremstyle{atlremark}
+\newtheorem{remark}{\atlstr{remark}}
+\renewcommand{\proofname}{\atlstr{proof}}
+\renewcommand{\qedsymbol}{\textcolor{atl-accent}{$\blacksquare$}}
+\crefname{theorem}{\atlstr{theorem}}{\atlstr{theorem}}
+\makeatother

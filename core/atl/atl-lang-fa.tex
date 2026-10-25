@@ -1,0 +1,95 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-lang-fa.tex -- Persian (Farsi) language layer, XeLaTeX + XePersian only
+%   keys read: fafont = vazirmatn (default) | felmi
+%              fascale   (Persian font scale, default depends on the font)
+% Fonts are looked up in fonts/ (copied into the project by mktex) and fall back
+% to system fonts, so the document never fails on a missing font.
+% ============================================================================
+\makeatletter
+\RequirePackage{xepersian}
+
+\newcommand{\atl@fa@try}[3]{% regular file, bold file, scale
+  % Persian fonts have no italic: map italic to upright so nothing is substituted silently
+  \settextfont[Path=fonts/,Scale=#3,BoldFont=#2,ItalicFont=#1,BoldItalicFont=#2]{#1}%
+  \setdigitfont[Path=fonts/,Scale=#3,BoldFont=#2,ItalicFont=#1,BoldItalicFont=#2]{#1}%
+}
+\newcommand{\atl@fa@sys}[1]{% system font family
+  \settextfont[Scale=1.0]{#1}\setdigitfont[Scale=1.0]{#1}%
+}
+
+\atlifeq{fafont}{felmi}{%
+  \atldefault{fascale}{1.1}%
+  \IfFileExists{fonts/HM_FElmi.ttf}{\atl@fa@try{HM_FElmi.ttf}{HM_FElmiBd.ttf}{\atlmeta{fascale}}}%
+    {\IfFontExistsTF{Amiri}{\atl@fa@sys{Amiri}}{\atl@fa@sys{Noto Naskh Arabic}}}%
+  \setlatintextfont[Scale=MatchLowercase]{TeX Gyre Termes}%
+}{%
+  \atldefault{fascale}{0.95}%
+  \IfFileExists{fonts/Vazirmatn-Regular.ttf}{\atl@fa@try{Vazirmatn-Regular.ttf}{Vazirmatn-Bold.ttf}{\atlmeta{fascale}}}%
+    {\IfFontExistsTF{Vazirmatn}{\atl@fa@sys{Vazirmatn}}{\atl@fa@sys{Noto Sans Arabic}}}%
+  \setlatintextfont[Scale=MatchLowercase]{TeX Gyre Heros}%
+}
+% Persian sans (headings) is always Vazirmatn when available
+\IfFileExists{fonts/Vazirmatn-Regular.ttf}{%
+  \setpersiansansfont[Path=fonts/,Scale=0.95,BoldFont=Vazirmatn-Bold.ttf]{Vazirmatn-Regular.ttf}}{}
+\IfFontExistsTF{TeX Gyre Heros}{\setsansfont[Scale=MatchLowercase]{TeX Gyre Heros}}{}
+\IfFontExistsTF{Latin Modern Mono}{\setmonofont[Scale=MatchLowercase]{Latin Modern Mono}}{}
+
+\AtBeginDocument{%
+  \SetSymbolFont{operators}{normal}{OT1}{cmr}{m}{n}%
+  \SetSymbolFont{operators}{bold}{OT1}{cmr}{bx}{n}}
+
+% ---- direction hooks (start side of a line = right) -------------------------
+\def\atl@start{east}\def\atl@end{west}
+\def\atl@L{R}\def\atl@R{L}
+% \sffamily is the LATIN sans in XePersian; Persian sans is \persiansffamily
+\newcommand{\atl@sf}{\persiansffamily}
+% Latin/code runs: left-to-right and no digit conversion (XePersian's inter-character tokens
+% would otherwise reorder things like `h:.0e' or `3.14' inside listings)
+\newcommand{\atl@ltr}{\setLTR\XeTeXinterchartokenstate=0\resetlatinfont\relax}
+\newcommand{\atl@lr}[1]{\lr{#1}}
+\newcommand{\atl@numsep}{-}                 % ۲-۱  (Persian academic convention)
+\newcommand{\atl@frontnumbering}{harfi}     % آ، ب، پ ...
+\newcommand{\atl@appendixnumber}[1]{\harfi{#1}}
+\newcommand{\atl@startskip}[1]{\hspace*{#1}}
+\newcommand{\atl@flushstart}{\raggedleft}      % in XePersian \raggedleft = flush to the start (right) side
+
+% ---- labels ----------------------------------------------------------------
+\atldefstr{note}{نکته}                 \atldefstr{warning}{هشدار}
+\atldefstr{tip}{راهنما}                \atldefstr{result}{نتیجه}
+\atldefstr{definition}{تعریف}          \atldefstr{example}{مثال}
+\atldefstr{remark}{یادآوری}            \atldefstr{theorem}{قضیه}
+\atldefstr{lemma}{لم}                  \atldefstr{proposition}{گزاره}
+\atldefstr{corollary}{نتیجه‌ی قضیه}      \atldefstr{proof}{اثبات}
+\atldefstr{problem}{مسئله}             \atldefstr{solution}{پاسخ}
+\atldefstr{points}{نمره}               \atldefstr{point}{نمره}
+\atldefstr{abstract}{چکیده}            \atldefstr{keywords}{واژگان کلیدی}
+\atldefstr{contents}{فهرست مطالب}      \atldefstr{listoffigures}{فهرست شکل‌ها}
+\atldefstr{listoftables}{فهرست جدول‌ها}
+\atldefstr{references}{مراجع}          \atldefstr{appendix}{پیوست}
+\atldefstr{chapter}{فصل}               \atldefstr{figure}{شکل}
+\atldefstr{table}{جدول}                \atldefstr{page}{صفحه}
+\atldefstr{author}{نگارنده}            \atldefstr{authors}{نویسندگان}
+\atldefstr{studentid}{شماره‌ی دانشجویی}   \atldefstr{course}{درس}
+\atldefstr{coursecode}{کد درس}         \atldefstr{instructor}{استاد}
+\atldefstr{supervisor}{استاد راهنما}    \atldefstr{advisor}{استاد مشاور}
+\atldefstr{team}{اعضای گروه}           \atldefstr{partners}{همکاران آزمایش}
+\atldefstr{experiment}{آزمایش}         \atldefstr{labsection}{گروه آزمایشگاه}
+\atldefstr{term}{نیم‌سال}               \atldefstr{date}{تاریخ}
+\atldefstr{duedate}{مهلت تحویل}        \atldefstr{submissiondate}{تاریخ تحویل}
+\atldefstr{performed}{تاریخ انجام}
+\atldefstr{university}{دانشگاه}        \atldefstr{department}{دانشکده}
+\atldefstr{type-homework}{تمرین}
+\atldefstr{type-lab-report}{گزارش آزمایشگاه}
+\atldefstr{type-project-report}{گزارش پروژه}
+\atldefstr{type-formal-report}{گزارش}
+\atldefstr{type-essay}{مقاله‌ی تحلیلی}
+\atldefstr{type-paper}{مقاله}
+
+% cleveref names
+\crefname{figure}{شکل}{شکل‌ها}\Crefname{figure}{شکل}{شکل‌ها}
+\crefname{table}{جدول}{جدول‌ها}\Crefname{table}{جدول}{جدول‌ها}
+\crefname{equation}{رابطه}{رابطه‌ها}\Crefname{equation}{رابطه}{رابطه‌ها}
+\crefname{section}{بخش}{بخش‌ها}\Crefname{section}{بخش}{بخش‌ها}
+\crefname{chapter}{فصل}{فصل‌ها}\Crefname{chapter}{فصل}{فصل‌ها}
+\makeatother

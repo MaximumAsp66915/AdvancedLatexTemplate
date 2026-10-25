@@ -1,0 +1,25 @@
+% !TeX program = xelatex
+\documentclass[12pt,a4paper]{article}
+
+\input{atl/atl-keys}                      % ۱. کلیدهای پیکربندی
+\atlset{language=fa, category=essay,      % ۲. مشخصات این قالب (آزادانه تغییر دهید)
+        titlepage=classic, margins=normal, linespread=1.4, parstyle=indent,
+        fafont=felmi, headfont=sans,
+        title={عنوان مقاله}, author={نام نویسنده}, date={\today}}
+\input{config}                            % ۳. مقادیر شما (به‌وسیله‌ی mktex نوشته می‌شود)
+\input{atl/atl}                           % ۴. موتور قالب
+\input{preamble/local}                    % ۵. ماکروها و تنظیمات شخصی شما
+
+\begin{document}
+\atlmaketitle
+
+\begin{abstract}
+پرسش، تز و خط اصلی استدلال را در چهار یا پنج جمله بیان کنید.
+\end{abstract}
+
+\input{sections/01-introduction}
+\input{sections/02-argument}
+\input{sections/03-conclusion}
+
+\atlbibliography{refs}
+\end{document}

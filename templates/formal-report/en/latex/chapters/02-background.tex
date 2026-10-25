@@ -1,0 +1,34 @@
+\chapter{Background and Literature Review}\label{ch:background}
+
+\section{Theoretical Foundations}
+Present the theory with numbered equations that you refer to by label:
+\begin{equation}\label{eq:energy}
+  E = mc^{2}.
+\end{equation}
+\Cref{eq:energy} is numbered by chapter. Use \texttt{\textbackslash vect}, \texttt{\textbackslash mat} and
+\texttt{\textbackslash qty} for notation and units, for example $\vect{F}=m\vect{a}$ and \qty{9.81}{\metre\per\second\squared}.
+
+\begin{definitionbox}[Definition]
+A boxed definition for the central concept of the chapter.
+\end{definitionbox}
+
+\begin{theorem}[Pythagoras]\label{thm:pyth}
+For a right triangle with legs $a,b$ and hypotenuse $c$, $a^{2}+b^{2}=c^{2}$.
+\end{theorem}
+\begin{proof}
+Standard; see \cite{knuth1984}.
+\end{proof}
+
+\section{Related Work}
+Compare the main existing approaches in a table.
+\begin{center}\atlrows
+  \captionof{table}{Comparison of existing approaches.}\label{tab:related}
+  \begin{tabular}{@{}llll@{}}
+    \rowcolor{atl-primary}\atlhead{Approach} & \atlhead{Strength} & \atlhead{Weakness} & \atlhead{Ref.}\\
+    Method A & Fast & Inaccurate & \cite{knuth1984} \\
+    Method B & Accurate & Slow & \cite{lamport1994} \\
+  \end{tabular}
+\end{center}
+
+\section{Chapter Summary}
+Summarise what the reader should take from this chapter.

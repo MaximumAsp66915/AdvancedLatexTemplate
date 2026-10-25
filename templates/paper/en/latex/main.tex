@@ -1,0 +1,32 @@
+% !TeX program = xelatex
+\documentclass[10pt,a4paper,twocolumn]{article}
+
+\input{atl/atl-keys}                      % 1. configuration keys
+\atlset{category=paper,                   % 2. what this template is (change freely)
+        titlepage=classic, margins=narrow, linespread=1.05, parstyle=indent,
+        headfont=serif, headsize=compact, enfont=termes,
+        headerstart={Short running title},
+        title={Paper Title}, author={Author Name}, affiliation={Department, University},
+        keywords={keyword one, keyword two, keyword three}, date={\today}}
+\input{config}                            % 3. your values (written by mktex; edit freely)
+\input{atl/atl}                           % 4. the engine
+\input{preamble/local}                    % 5. your own macros and settings
+\setlength{\columnsep}{0.8cm}
+
+\begin{document}
+\twocolumn[%
+  \atlmaketitle
+  \begin{abstract}
+  Summarise the problem, the method, the main results and their significance in about 150 words.
+  \atlkeywords{\atlmeta{keywords}}
+  \end{abstract}
+]
+
+\input{sections/01-introduction}
+\input{sections/02-related-work}
+\input{sections/03-method}
+\input{sections/04-experiments}
+\input{sections/05-conclusion}
+
+\atlbibliography{refs}
+\end{document}

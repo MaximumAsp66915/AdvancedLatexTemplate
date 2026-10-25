@@ -1,0 +1,50 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl.tex -- AdvancedLatexTemplate engine loader
+%
+% main.tex of every template:
+%     \documentclass[...]{article}            (or report)
+%     \input{atl/atl-keys}                    keys
+%     \atlset{category=..., palette=..., ...} this template's defaults
+%     \input{config}                          your values (written by mktex)
+%     \input{atl/atl}                         <- this file (also loads preamble/packages.tex)
+%     \input{preamble/local}                  your own macros and settings
+%     \begin{document} \atlmaketitle ...
+% Needs XeLaTeX:  latexmk -xelatex main.tex
+% ============================================================================
+\makeatletter
+\atldefault{language}{en}
+\atldefault{category}{homework}
+\newif\ifatlfa
+\atlifeq{language}{fa}{\atlfatrue}{\atlfafalse}
+
+\input{atl/atl-packages}
+\IfFileExists{preamble/packages.tex}{\input{preamble/packages.tex}}{}  % your extra \usepackage lines (before XePersian)
+\ifatlfa\input{atl/atl-lang-fa}\else\input{atl/atl-lang-en}\fi
+\input{atl/atl-palettes}
+\input{atl/atl-layout}
+\input{atl/atl-headings}
+\input{atl/atl-pagestyle}
+\input{atl/atl-floats}
+\input{atl/atl-boxes}
+\input{atl/atl-code}
+\input{atl/atl-macros}
+\input{atl/atl-theorems}
+\input{atl/atl-titles}
+\input{atl/atl-bib}
+
+\makeatletter % (each module ends with \makeatother)
+% names LaTeX prints itself (Contents, List of Figures, ...) come from the language layer
+\AtBeginDocument{%
+  \renewcommand{\contentsname}{\atlstr{contents}}%
+  \renewcommand{\listfigurename}{\atlstr{listoffigures}}%
+  \renewcommand{\listtablename}{\atlstr{listoftables}}%
+  \renewcommand{\figurename}{\atlstr{figure}}%
+  \renewcommand{\tablename}{\atlstr{table}}%
+  \renewcommand{\appendixname}{\atlstr{appendix}}%
+  \@ifundefined{refname}{\newcommand{\refname}{\atlstr{references}}}{\renewcommand{\refname}{\atlstr{references}}}%
+  \@ifundefined{bibname}{}{\renewcommand{\bibname}{\atlstr{references}}}%
+  \@ifundefined{abstractname}{}{\renewcommand{\abstractname}{\atlstr{abstract}}}}
+\hypersetup{linktoc=page}
+\makeatother
+\makeatother

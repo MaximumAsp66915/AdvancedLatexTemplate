@@ -1,0 +1,37 @@
+\section{Programming}
+
+\begin{problem}[Numerical derivative][15]
+Implement a central-difference derivative and test it on $f(x)=\sin x$ at $x=1$.
+Report the error for $h=10^{-1},10^{-3},10^{-5}$.
+\end{problem}
+
+\begin{solution}
+The central difference is
+\begin{equation}\label{eq:central}
+  f'(x)\approx\frac{f(x+h)-f(x-h)}{2h},
+\end{equation}
+with truncation error $\mathcal{O}(h^2)$ (see \cref{eq:central}). Code and results follow.
+
+\begin{codebox}[title=derivative.py]{Python}
+import numpy as np
+
+def central_diff(f, x, h):
+    return (f(x + h) - f(x - h)) / (2 * h)
+
+for h in (1e-1, 1e-3, 1e-5):
+    err = abs(central_diff(np.sin, 1.0, h) - np.cos(1.0))
+    print(f"h = {h:.0e}   error = {err:.2e}")
+\end{codebox}
+
+\begin{center}\atlrows
+  \captionof{table}{Error of the central difference at $x=1$.}\label{tab:err}
+  \begin{tabular}{@{}lS[table-format=1.2e-2]@{}}
+    \rowcolor{atl-primary}\atlhead{$h$} & {\atlhead{Error}}\\
+    $10^{-1}$ & 9.00e-4 \\
+    $10^{-3}$ & 9.00e-8 \\
+    $10^{-5}$ & 9.00e-12 \\
+  \end{tabular}
+\end{center}
+
+\Cref{tab:err} shows the expected quadratic decrease.
+\end{solution}

@@ -1,0 +1,37 @@
+# ---- local only: never pushed ----
+
+# the old English system: kept on disk because old projects still use it
+/legacy/
+# Persian working notes and third-party reference material
+/fa/
+# built executables (published as GitHub release assets instead)
+/dist/
+# local launcher
+/mktex
+# assistant and editor files
+CLAUDE.md
+.claude/
+.vscode/
+
+# ---- LaTeX build output ----
+build/
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.pdf
+*.bbl
+*.blg
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# ---- OS ----
+.DS_Store
+Thumbs.db

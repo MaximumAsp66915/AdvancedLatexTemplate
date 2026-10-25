@@ -1,0 +1,31 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-packages.tex -- every package the system needs, loaded once, in a safe order.
+% Everything here is language-neutral. XePersian (Persian) is loaded afterwards,
+% by atl-lang-fa.tex, because it must come after hyperref.
+% ============================================================================
+\makeatletter
+\PassOptionsToPackage{table,dvipsnames,svgnames}{xcolor}
+\RequirePackage{etoolbox}
+\RequirePackage{fontspec}
+\RequirePackage{geometry}
+\RequirePackage{setspace}
+\RequirePackage{amsmath,amssymb,amsthm,mathtools,bm}
+\RequirePackage{siunitx}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage{array,booktabs,multirow}
+\RequirePackage{caption,subcaption}
+\RequirePackage{enumitem}
+\RequirePackage{needspace}
+\RequirePackage{titlesec}
+\RequirePackage{fancyhdr}
+\RequirePackage{tikz}
+\usetikzlibrary{calc,positioning,arrows.meta,shapes.geometric,backgrounds,fit}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable,listings}
+\RequirePackage{listings}
+\RequirePackage{hyperref}
+\RequirePackage{bookmark}
+\RequirePackage{cleveref}
+\makeatother

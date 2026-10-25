@@ -1,0 +1,45 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-keys.tex -- configuration keys
+%
+%   \atlset{key=value, ...}     set (or override) keys; any key name is allowed
+%   \atlmeta{key}               value of a key (empty if unset)
+%   \atlifset{key}{yes}{no}     is the key set and non-empty?
+%   \atlifeq{key}{val}{y}{n}    does the key equal val?
+%   \atlifon{key}{yes}{no}      is the key true/on/yes?
+%   \atldefault{key}{value}     set the key only if it is not set yet
+%   \atlstr{name}               localised label (defined by the language layer)
+%
+% Order in main.tex: this file, template defaults, config.tex (your values), atl.tex.
+% ============================================================================
+\makeatletter
+\RequirePackage{pgfkeys}
+\RequirePackage{etoolbox}
+\RequirePackage{pdftexcmds}
+
+\pgfkeys{/atl/.unknown/.code={\expandafter\gdef\csname atl@m@\pgfkeyscurrentname\endcsname{#1}}}
+
+\newcommand{\atlset}[1]{\pgfkeys{/atl/.cd,#1}}
+\newcommand{\atlmeta}[1]{\ifcsname atl@m@#1\endcsname\csname atl@m@#1\endcsname\fi}
+
+% The conditionals select a branch first and only then run it, so the chosen code may
+% contain & and \\ (table cells) without sitting inside an open \if.
+\long\def\atl@iftrue#1#2{#1}\long\def\atl@iffalse#1#2{#2}
+\newcommand{\atl@isset}[1]{%
+  \ifcsname atl@m@#1\endcsname
+    \expandafter\ifx\csname atl@m@#1\endcsname\@empty false\else true\fi
+  \else false\fi}
+\newcommand{\atl@iseq}[2]{%
+  \ifcsname atl@m@#1\endcsname
+    \ifnum\pdf@strcmp{\csname atl@m@#1\endcsname}{#2}=\z@ true\else false\fi
+  \else false\fi}
+\newcommand{\atlifset}[3]{\csname atl@if\atl@isset{#1}\endcsname{#2}{#3}}
+\newcommand{\atlifeq}[4]{\csname atl@if\atl@iseq{#1}{#2}\endcsname{#3}{#4}}
+\newcommand{\atlifon}[3]{%
+  \atlifeq{#1}{true}{#2}{\atlifeq{#1}{on}{#2}{\atlifeq{#1}{yes}{#2}{#3}}}}
+\newcommand{\atldefault}[2]{\atlifset{#1}{}{\atlset{#1={#2}}}}
+
+% Localised strings: defined with \atldefstr in atl-lang-*.tex
+\newcommand{\atldefstr}[2]{\expandafter\gdef\csname atl@s@#1\endcsname{#2}}
+\newcommand{\atlstr}[1]{\ifcsname atl@s@#1\endcsname\csname atl@s@#1\endcsname\else[#1]\fi}
+\makeatother

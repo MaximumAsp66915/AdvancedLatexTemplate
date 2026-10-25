@@ -1,0 +1,32 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-pagestyle.tex -- running header and footer (fancyhdr)
+%   keys: headerstart  text at the start side of the header (default: course, then title)
+%         headerend    text at the end side (default: current section title)
+%         header     = on (default) | off
+% In Persian "start" is the right-hand side, so the header mirrors automatically.
+% ============================================================================
+\makeatletter
+\atldefault{header}{on}
+\newcommand{\atl@hdrstart}{\atlifset{headerstart}{\atlmeta{headerstart}}{\atlifset{course}{\atlmeta{course}}{\atlmeta{title}}}}
+\newcommand{\atl@hdrend}{\atlifset{headerend}{\atlmeta{headerend}}{\nouppercase{\rightmark}}}
+
+\renewcommand{\sectionmark}[1]{\markright{\ifnum\c@secnumdepth>\z@\thesection\ \fi #1}}
+\@ifundefined{chapter}{}{\renewcommand{\chaptermark}[1]{\markboth{#1}{}}}
+
+% (an hbox with leaders confuses fancyhdr's height check under XePersian; use \hrule)
+\def\atl@headrule{{\color{atl-primary}\hrule\@height\headrulewidth\@width\headwidth\vskip-\headrulewidth}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\expandafter\fancyhead\expandafter[\atl@L]{\small\atl@headfont\bfseries\color{atl-primary}\atl@hdrstart}
+\expandafter\fancyhead\expandafter[\atl@R]{\small\atl@headfont\color{atl-muted}\atl@hdrend}
+\fancyfoot[C]{\small\color{atl-muted}\thepage}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\footrulewidth}{0pt}
+\let\headrule\atl@headrule
+\fancypagestyle{plain}{%
+  \fancyhf{}\fancyfoot[C]{\small\color{atl-muted}\thepage}%
+  \renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{0pt}}
+\atlifeq{header}{off}{\pagestyle{plain}}{}
+\makeatother

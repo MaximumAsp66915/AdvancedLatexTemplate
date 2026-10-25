@@ -1,0 +1,73 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-palettes.tex -- color palettes
+%
+%   Choose:   \atlset{palette=sunset}   (config.tex)   or   \atlsetpalette{sunset}
+%   Define:   \atldefpalette{mine}{primary=003D82, secondary=0066CC, accent=D4AF37,
+%                                  light=E6F7FF, tint=EAF2FF}
+%   (success, warning, info, result are optional; they fall back to shared defaults.)
+%
+% Roles used by every other module (never use raw colors in templates):
+%   atl-primary     headings, title, table header, links        (dark, readable)
+%   atl-secondary   sub-headings, rules                         (mid tone)
+%   atl-accent      thin rules, highlights, bars                (decorative)
+%   atl-light       box background        atl-tint   page/band tint
+%   atl-success atl-warning atl-info atl-result   semantic colors
+% Derived: atl-primary-dark, atl-secondary-text (readable on white), atl-accent-text,
+%          atl-muted, atl-ink (body text)
+% ============================================================================
+\makeatletter
+\definecolor{atl-default-success}{HTML}{2E7D32}
+\definecolor{atl-default-warning}{HTML}{C62828}
+\definecolor{atl-default-info}{HTML}{1565C0}
+\definecolor{atl-default-result}{HTML}{6A1B9A}
+
+\pgfkeys{/atl/pal/.cd,
+  primary/.code={\definecolor{atl-\atl@curpal-primary}{HTML}{#1}},
+  secondary/.code={\definecolor{atl-\atl@curpal-secondary}{HTML}{#1}},
+  accent/.code={\definecolor{atl-\atl@curpal-accent}{HTML}{#1}},
+  light/.code={\definecolor{atl-\atl@curpal-light}{HTML}{#1}},
+  tint/.code={\definecolor{atl-\atl@curpal-tint}{HTML}{#1}},
+  success/.code={\definecolor{atl-\atl@curpal-success}{HTML}{#1}},
+  warning/.code={\definecolor{atl-\atl@curpal-warning}{HTML}{#1}},
+  info/.code={\definecolor{atl-\atl@curpal-info}{HTML}{#1}},
+  result/.code={\definecolor{atl-\atl@curpal-result}{HTML}{#1}},
+}
+\newcommand{\atl@palfill}[1]{%
+  \ifcsname\string\color@atl-\atl@curpal-#1\endcsname\else
+    \colorlet{atl-\atl@curpal-#1}{atl-default-#1}\fi}
+\newcommand{\atldefpalette}[2]{%
+  \def\atl@curpal{#1}\pgfkeys{/atl/pal/.cd,#2}%
+  \forcsvlist{\atl@palfill}{success,warning,info,result}}
+
+% name        primary  secondary accent  light   tint
+\atldefpalette{blue}{primary=003D82, secondary=0066CC, accent=D4AF37, light=E6F2FF, tint=EAF2FF}
+\atldefpalette{red}{primary=8B0000, secondary=C62828, accent=E0A800, light=FFF0F0, tint=FFE8E8}
+\atldefpalette{gray}{primary=2C3E50, secondary=5D6D7E, accent=3498DB, light=ECEFF1, tint=F4F6F7}
+\atldefpalette{cyan}{primary=00687A, secondary=00A0B2, accent=FF6F00, light=E1F5FE, tint=E0F2F1}
+\atldefpalette{magenta}{primary=7B1FA2, secondary=C2185B, accent=00ACC1, light=F3E5F5, tint=FCE4EC}
+\atldefpalette{yellow}{primary=826200, secondary=CD8500, accent=1976D2, light=FFF8E1, tint=FFF3C4}
+\atldefpalette{green}{primary=1B5E20, secondary=2E7D32, accent=F9A825, light=E8F5E9, tint=F1F8E9}
+\atldefpalette{sunset}{primary=355C7D, secondary=6C5B7B, accent=F67280, light=FAF4F5, tint=FFF1F2}
+\atldefpalette{ocean}{primary=2E3A38, secondary=11999E, accent=30E3CA, light=E4F9F5, tint=EEFBF8}
+\atldefpalette{berry}{primary=311D3F, secondary=522546, accent=E23E57, light=F8EEF1, tint=FBF3F5}
+\atldefpalette{neon}{primary=252A34, secondary=00B5B2, accent=FF2E63, light=EAEAEA, tint=F4F4F4}
+
+\newcommand{\atl@applyrole}[2]{\colorlet{atl-#2}{atl-#1-#2}}
+\newcommand{\atlsetpalette}[1]{%
+  \ifcsname\string\color@atl-#1-primary\endcsname\else
+    \PackageError{atl}{Unknown palette `#1'}{Palettes: blue red gray cyan magenta yellow green sunset ocean berry neon, or define one with \string\atldefpalette.}%
+  \fi
+  \forcsvlist{\atl@applyrole{#1}}{primary,secondary,accent,light,tint,success,warning,info,result}%
+  \colorlet{atl-primary-dark}{atl-primary!70!black}%
+  \colorlet{atl-secondary-text}{atl-secondary!78!black}%
+  \colorlet{atl-accent-text}{atl-accent!72!black}%
+  \colorlet{atl-muted}{black!58}%
+  \colorlet{atl-ink}{black!92}%
+}
+\atldefault{palette}{blue}
+\edef\atl@tmp{\atlmeta{palette}}
+\expandafter\atlsetpalette\expandafter{\atl@tmp}
+
+\hypersetup{colorlinks=true,linkcolor=atl-primary,urlcolor=atl-secondary-text,citecolor=atl-primary,pdfborder={0 0 0}}
+\makeatother

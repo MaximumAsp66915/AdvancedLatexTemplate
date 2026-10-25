@@ -1,0 +1,11 @@
+# Normalize line endings: text files are stored with LF in the repository.
+* text=auto
+*.sh text eol=lf
+*.go text eol=lf
+*.py text eol=lf
+*.tex text
+*.bib text
+*.md text
+# Binary files
+*.png binary
+*.ttf binary

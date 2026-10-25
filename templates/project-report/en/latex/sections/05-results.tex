@@ -1,0 +1,15 @@
+\section{Testing and Results}
+
+\begin{center}\atlrows
+  \captionof{table}{Test results per requirement.}\label{tab:tests}
+  \begin{tabular}{@{}lll@{}}
+    \rowcolor{atl-primary}\atlhead{Requirement} & \atlhead{Result} & \atlhead{Status}\\
+    R1 & \qty{1.00}{\hertz} sampling & \ok{Pass} \\
+    R2 & 26 h continuous logging & \ok{Pass} \\
+    R3 & \qty{240}{\milli\second} response & \alert{Fail} \\
+  \end{tabular}
+\end{center}
+
+\begin{warningbox}[Open issue]
+R3 is not met yet (\cref{tab:tests}); the display driver is the bottleneck.
+\end{warningbox}

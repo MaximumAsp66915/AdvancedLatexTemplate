@@ -1,0 +1,24 @@
+\section{Experiments}
+\Cref{tab:res} compares the methods and \cref{fig:conv} shows the convergence.
+
+\begin{table}[t]
+  \centering\atlrows
+  \caption{Error of the compared methods.}\label{tab:res}
+  \begin{tabular}{@{}lcc@{}}
+    \rowcolor{atl-primary}\atlhead{Method} & \atlhead{Error} & \atlhead{Time (s)}\\
+    Baseline & 0.31 & 12.4 \\
+    Proposed & 0.12 & 8.7 \\
+  \end{tabular}
+\end{table}
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[width=\linewidth, height=4.6cm, xlabel={Iteration}, ylabel={Error},
+        ymode=log, grid=both, grid style={atl-muted!25}, every axis plot/.append style={thick}]
+      \addplot[color=atl-primary, domain=1:50, samples=40] {1/x};
+      \addplot[color=atl-accent, domain=1:50, samples=40] {0.3/x^1.5};
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Convergence of the two methods.}\label{fig:conv}
+\end{figure}

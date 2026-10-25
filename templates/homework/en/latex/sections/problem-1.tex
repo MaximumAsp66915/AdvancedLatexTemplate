@@ -1,0 +1,29 @@
+\section{Linear Systems}
+
+\begin{problem}[Eigenvalues][10]
+Find the eigenvalues and eigenvectors of
+\[
+  \mat{A}=\begin{bmatrix} 2 & 1\\ 1 & 2\end{bmatrix}.
+\]
+\end{problem}
+
+\begin{solution}
+The characteristic polynomial is
+\[
+  \det(\mat{A}-\lambda\mat{I}) = (2-\lambda)^2-1 = (\lambda-1)(\lambda-3),
+\]
+so $\lambda_1=1$ and $\lambda_2=3$. The corresponding eigenvectors are
+$\vect{v}_1=\trans{[1,\,-1]}$ and $\vect{v}_2=\trans{[1,\,1]}$.
+
+\begin{resultbox}[Answer]
+$\lambda_1=1$, \quad $\lambda_2=3$.
+\end{resultbox}
+\end{solution}
+
+\begin{problem}[Positive definiteness][5]
+Is $\mat{A}$ positive definite? Justify your answer.
+\end{problem}
+
+\begin{solution}
+Yes. Both eigenvalues are positive, so $\trans{\vect{x}}\mat{A}\vect{x}>0$ for every $\vect{x}\neq\vect{0}$.
+\end{solution}

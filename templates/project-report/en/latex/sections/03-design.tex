@@ -1,0 +1,23 @@
+\section{System Design}
+
+\Cref{fig:arch} shows the architecture. Each block maps to one or more requirements of \cref{tab:req}.
+
+\begin{figure}[ht]
+  \centering
+  \begin{tikzpicture}[node distance=1.5cm and 1.4cm, every node/.style={font=\small},
+      blk/.style={draw=atl-primary, fill=atl-light, rounded corners=3pt, minimum width=2.5cm, minimum height=0.95cm, thick, align=center},
+      arr/.style={-{Stealth[length=2.2mm]}, thick, atl-secondary}]
+    \node[blk] (s) {Sensor};
+    \node[blk, right=of s] (m) {Microcontroller};
+    \node[blk, right=of m] (u) {User interface};
+    \node[blk, below=of m] (l) {Data logger};
+    \draw[arr] (s) -- (m); \draw[arr] (m) -- (u); \draw[arr] (m) -- (l);
+  \end{tikzpicture}
+  \caption{System architecture.}\label{fig:arch}
+\end{figure}
+
+\subsection{Design Decisions}
+\begin{enumerate}
+  \item The sampling period is fixed by a hardware timer (R1).
+  \item Data are stored in non-volatile memory (R2).
+\end{enumerate}

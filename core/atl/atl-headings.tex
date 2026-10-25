@@ -1,0 +1,120 @@
+% SPDX-License-Identifier: MPL-2.0   (see LICENSE in the AdvancedLatexTemplate repository)
+% ============================================================================
+% atl-headings.tex -- sectioning styles, numbering, front/main matter, abstract
+%   keys: headfont = sans (default) | serif
+%         numbering= flat (default) | section      (article class only; a class with
+%                    \chapter always numbers floats/equations per chapter)
+%         headsize = normal (default) | compact   (compact: smaller headings, for papers)
+%         sectionbreak = off (default) | on       (start every \section on a new page)
+% ============================================================================
+\makeatletter
+\atldefault{headfont}{sans}
+\atldefault{numbering}{flat}
+\atldefault{headsize}{normal}
+\atldefault{sectionbreak}{off}
+\atlifeq{headfont}{serif}{\newcommand{\atl@headfont}{\rmfamily}}{\newcommand{\atl@headfont}{\atl@sf}}
+
+% ---- numbering ----------------------------------------------------------------
+\@ifundefined{chapter}{%
+  \renewcommand{\thesubsection}{\thesection\atl@numsep\arabic{subsection}}%
+  \renewcommand{\thesubsubsection}{\thesubsection\atl@numsep\arabic{subsubsection}}%
+  \atlifeq{numbering}{section}{%
+    \counterwithin{equation}{section}\counterwithin{figure}{section}\counterwithin{table}{section}%
+    \renewcommand{\theequation}{\thesection\atl@numsep\arabic{equation}}%
+    \renewcommand{\thefigure}{\thesection\atl@numsep\arabic{figure}}%
+    \renewcommand{\thetable}{\thesection\atl@numsep\arabic{table}}%
+  }{}%
+}{%
+  \renewcommand{\thesection}{\thechapter\atl@numsep\arabic{section}}%
+  \renewcommand{\thesubsection}{\thesection\atl@numsep\arabic{subsection}}%
+  \renewcommand{\thesubsubsection}{\thesubsection\atl@numsep\arabic{subsubsection}}%
+  \renewcommand{\theequation}{\thechapter\atl@numsep\arabic{equation}}%
+  \renewcommand{\thefigure}{\thechapter\atl@numsep\arabic{figure}}%
+  \renewcommand{\thetable}{\thechapter\atl@numsep\arabic{table}}%
+}
+
+% ---- section styles -----------------------------------------------------------
+\titleformat{\section}
+  {\atl@headfont\Large\bfseries\color{atl-primary}}
+  {\color{atl-accent-text}\thesection}{0.7em}{}
+  [\vspace{-0.3ex}{\color{atl-accent}\titlerule[0.9pt]}]
+\titleformat{\subsection}
+  {\atl@headfont\large\bfseries\color{atl-secondary-text}}
+  {\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}
+  {\atl@headfont\normalsize\bfseries\color{atl-muted}}
+  {\thesubsubsection}{0.5em}{}
+\titleformat{\paragraph}[runin]
+  {\atl@headfont\normalsize\bfseries\color{atl-secondary-text}}
+  {}{0pt}{}[.]
+\titlespacing*{\section}{0pt}{2.4ex plus 0.6ex minus 0.2ex}{1.2ex plus 0.2ex}
+\titlespacing*{\subsection}{0pt}{2ex plus 0.5ex minus 0.2ex}{0.9ex plus 0.2ex}
+\titlespacing*{\subsubsection}{0pt}{1.6ex plus 0.4ex}{0.6ex}
+\titlespacing*{\paragraph}{0pt}{1.2ex plus 0.3ex}{0.8em}
+
+\atlifeq{headsize}{compact}{%
+  \titleformat{\section}
+    {\atl@headfont\large\bfseries\color{atl-primary}}
+    {\color{atl-accent-text}\thesection}{0.6em}{}
+    [\vspace{-0.4ex}{\color{atl-accent}\titlerule[0.7pt]}]
+  \titleformat{\subsection}
+    {\atl@headfont\normalsize\bfseries\color{atl-secondary-text}}
+    {\thesubsection}{0.5em}{}
+  \titlespacing*{\section}{0pt}{1.6ex plus 0.4ex}{0.8ex}
+  \titlespacing*{\subsection}{0pt}{1.3ex plus 0.3ex}{0.5ex}
+}{}
+% keep a heading together with the text that follows it
+\pretocmd{\section}{\needspace{7\baselineskip}}{}{}
+\pretocmd{\subsection}{\needspace{5\baselineskip}}{}{}
+\pretocmd{\subsubsection}{\needspace{4\baselineskip}}{}{}
+\atlifon{sectionbreak}{\pretocmd{\section}{\clearpage}{}{}}{}
+
+\@ifundefined{chapter}{}{%
+  \titleformat{\chapter}[display]
+    {\atl@headfont\bfseries\color{atl-primary}}
+    {\normalfont\large\color{atl-accent-text}\atlstr{chapter}\ \thechapter}{0.5ex}{\Huge}
+    [\vspace{1.2ex}{\color{atl-accent}\titlerule[2.2pt]}]
+  \titleformat{name=\chapter,numberless}[display]
+    {\atl@headfont\bfseries\color{atl-primary}}
+    {}{0pt}{\Huge}
+    [\vspace{1.2ex}{\color{atl-accent}\titlerule[2.2pt]}]
+  \titlespacing*{\chapter}{0pt}{-4pt}{2.2em}
+}
+
+% ---- unnumbered headings that still go to the table of contents ----------------
+%   \atlunnumbered{Abstract}   -> chapter* in report class, section* in article
+\newcommand{\atlunnumbered}[1]{%
+  \@ifundefined{chapter}{%
+    \phantomsection\section*{#1}\addcontentsline{toc}{section}{#1}%
+  }{%
+    \clearpage\phantomsection\chapter*{#1}\addcontentsline{toc}{chapter}{#1}%
+    \markboth{#1}{#1}%
+  }}
+
+% ---- front / main / back matter (page numbering) ----------------------------------
+\newcommand{\atlfrontmatter}{\clearpage\pagenumbering{\atl@frontnumbering}}
+\newcommand{\atlmainmatter}{\clearpage\pagenumbering{arabic}}
+\newcommand{\atlappendix}{%
+  \appendix
+  \@ifundefined{chapter}{%
+    \renewcommand{\thesection}{\atl@appendixnumber{section}}%
+    \renewcommand{\thesubsection}{\thesection\atl@numsep\arabic{subsection}}%
+  }{%
+    \renewcommand{\thechapter}{\atl@appendixnumber{chapter}}%
+    \titleformat{\chapter}[display]
+      {\atl@headfont\bfseries\color{atl-primary}}
+      {\normalfont\large\color{atl-accent-text}\atlstr{appendix}\ \thechapter}{0.5ex}{\Huge}
+      [\vspace{1.2ex}{\color{atl-accent}\titlerule[2.2pt]}]%
+  }}
+
+% ---- keywords line (use inside or after an abstract) --------------------------------
+\newcommand{\atlkeywords}[1]{\par\smallskip\noindent{\atl@headfont\bfseries\color{atl-primary}\atlstr{keywords}:}\ #1\par}
+
+% ---- abstract -------------------------------------------------------------------
+\renewenvironment{abstract}{%
+  \begin{tcolorbox}[enhanced,breakable,frame hidden,boxrule=0pt,sharp corners,
+      colback=atl-tint,borderline \atl@start={3pt}{0pt}{atl-accent},
+      left=10pt,right=10pt,top=6pt,bottom=6pt,before skip=1em,after skip=1.4em]
+  {\atl@headfont\bfseries\color{atl-primary}\atlstr{abstract}}\par\smallskip
+}{\end{tcolorbox}}
+\makeatother

@@ -1,0 +1,22 @@
+% !TeX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+\input{atl/atl-keys}                      % 1. configuration keys
+\atlset{category=homework,                % 2. what this template is (change freely)
+        titlepage=block, margins=normal, linespread=1.15,
+        infofields={author,studentid,course,instructor,duedate},
+        title={Homework}, date={\today}}
+\input{config}                            % 3. your values (written by mktex; edit freely)
+\input{atl/atl}                           % 4. the engine
+\input{preamble/local}                    % 5. your own macros and settings
+
+\begin{document}
+\atlmaketitle
+
+\input{sections/problem-1}
+\input{sections/problem-2}
+\input{sections/problem-3}
+
+\atlappendix
+\input{appendix/code}
+\end{document}
